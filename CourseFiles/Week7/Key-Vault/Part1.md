@@ -53,41 +53,12 @@
   az keyvault create --name myKeyVault --resource-group myResourceGroup --location eastus  
   ```
 
-##### **Store a Secret in the Key Vault**  
-- Store a secret in the Key Vault:  
-  ```bash  
-  az keyvault secret set --vault-name myKeyVault --name mySecret --value "mySecretValue"  
-  ```
-
-##### **Retrieve a Secret from the Key Vault**  
-- Retrieve the secret from the Key Vault:  
-  ```bash  
-  az keyvault secret show --vault-name myKeyVault --name mySecret  
-  ```
-
-### Overview of the Project Structure  
-Create a root directory for the project:  
-```bash  
-mkdir azure-key-vault-setup  
-cd azure-key-vault-setup  
-```
-
-The project structure will be:  
-```plaintext  
-azure-key-vault-setup/  
-├── scripts/  
-│   ├── create-key-vault.sh  
-│   ├── store-secret.sh  
-│   └── retrieve-secret.sh  
-└── README.md  
-```
-
-- **scripts/**: Directory for shell scripts to automate Key Vault operations.
-- **create-key-vault.sh**: Script to create a Key Vault.
-- **store-secret.sh**: Script to store a secret in the Key Vault.
-- **retrieve-secret.sh**: Script to retrieve a secret from the Key Vault.
-- **README.md**: Documentation for the setup process.
+##### **View the Key Vault in the Azure Portal**  
+- Open the [Azure Portal](https://portal.azure.com/).
+- Navigate to "Resource groups" in the left-hand menu.
+- Select the resource group `myResourceGroup`.
+- Click on the Key Vault `myKeyVault` to view its details.
 
 ### Next Steps  
-Proceed to Part 2 where you will start building the automation scripts, beginning with creating the Key Vault.
+Proceed to Part 2 where you will create and retrieve keys.
 ```
