@@ -30,8 +30,8 @@
 - Open a terminal or command prompt and run:  
   ```bash  
   az --version
+  ```
 
-```markdown
 - You should see output indicating the installed version of Azure CLI.  
 
 ##### **Login to Azure**  
