@@ -39,3 +39,6 @@
 - Confirm that the key `myKey` is listed.
 - Click on the key `myKey` to view its details.
 - Under the "Key operations" section, confirm that the operations `encrypt`, `decrypt`, `sign`, and `verify` are listed.
+
+### Next Steps  
+Proceed to Part 3 where you will create and retrieve keys.
