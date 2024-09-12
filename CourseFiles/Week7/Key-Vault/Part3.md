@@ -74,6 +74,7 @@ az keyvault secret set --vault-name <key-vault-name> --name mySecret --value "my
 - Click on the Current version
 - Confirm that the new version with the value `myNewSecretValue` is listed.
 - **Note:** Key vault maintains versioned secrets. Click on the older version to view the old secret value
+- **Note:** Take a look at the content type and tags on both versions of the secrets.
 - **Note:** The new version can take a minute or two to display in the portal. Keep refreshing the page until the new version appears.
 
 ![alt text](images/Part3-b.png)
