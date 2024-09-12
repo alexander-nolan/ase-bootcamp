@@ -1,46 +1,76 @@
 ### Part 3: Creating and Retrieving Secrets
 
-#### 1. Create a Secret in the Key Vault
+#### 1. Introduction
 
-##### **Create a Secret**
+##### **Overview of the Lab Objectives**
+- Understand the role-based access control (RBAC) requirements for managing keys.
+- Assign the appropriate RBAC role to the currently logged-in user.
+- Successfully create and retrieve secrets from the Key Vault.
+- Create a new version of your secret.
+
+#### 2. Assign Roles
+
+##### Assign The Key Vault Secrets Officer Role
+
+```bash
+az role assignment create --role "Key Vault Secrets Officer" --assignee <user-object-id> --scope /subscriptions/<subscription-id>/resourceGroups/myResourceGroup/providers/Microsoft.KeyVault/vaults/<key-vault-name>
+```
+
+- Replace `<user-object-id>` with the object ID obtained from the previous step.
+- Replace `<subscription-id>` with your Azure subscription ID.
+- Replace `<key-vault-name>` with the name of your key vault.
+- This command assigns the Key Vault Secrets Officer role to the currently logged-in user for the Key Vault.
+
+##### Verify Role Assignments
+
+```bash
+az role assignment list --assignee <user-object-id> --scope /subscriptions/<subscription-id>/resourceGroups/myResourceGroup/providers/Microsoft.KeyVault/vaults/<key-vault-name> --output table
+```
+
+- Replace `<user-object-id>` with the object ID obtained earlier.
+- Replace `<subscription-id>` with your Azure subscription ID.
+- Replace `<key-vault-name>` with the name of your key vault.
+- This command lists the role assignments for the specified user and scope, allowing you to verify that both the Key Vault Crypto Officer and Key Vault Secrets Officer roles have now been assigned.
+
+#### 3. Create and Retrieve Secrets
+
+##### Create a Secret
 
   ```bash
-az keyvault secret set --vault-name myKeyVault --name mySecretWithOptions --value "mySecretValue" --description "This is a test secret with additional options" --tags env=test --content-type "text/plain"
+az keyvault secret set --vault-name <key-vault-name> --name mySecret --value "mySecretValue" --description "This is a test secret with additional options" --tags env=test --content-type "text/plain"
   ```
+- Replace `<key-vault-name>` with the name of your key vault.
 - This command creates a secret with the value mySecretValue, a description, tags it with env=test, and sets the content type to text/plain.
 
-#### 2. Retrieve the Secret
-
-##### **Retrieve the Secret**
+##### Retrieve the Secret
 
   ```bash
-  az keyvault secret show --vault-name myKeyVault --name mySecret
+  az keyvault secret show --vault-name <key-vault-name> --name mySecret --query value
   ```
+- Replace `<key-vault-name>` with the name of your key vault.
 
-#### 3. Confirm Secret Creation in the Azure Portal
-
-##### **View the Secret in the Azure Portal**
+##### Confirm Secret Creation in the Azure Portal
 - Open the [Azure Portal](https://portal.azure.com/).
 - Navigate to "Resource groups" in the left-hand menu.
 - Select the resource group `myResourceGroup`.
-- Click on the Key Vault `myKeyVault`.
+- Click on the Key Vault.
 - In the Key Vault, navigate to "Secrets" under the "Settings" section.
 - Confirm that the secret `mySecret` is listed.
 - Click on the secret `mySecret` to view its details.
-- Under the "Properties" section, confirm that the description and tags are correctly set.
+- Click on the current version.
+- Click `Show Secret Value`
 
-#### 4. Create a New Version of the Secret
+![alt text](images/Part3-a.png)
 
-##### **Create a New Version of the Secret**
+##### Create a New Version of the Secret
 
   ```bash
-  az keyvault secret set --vault-name myKeyVault --name mySecret --value "myNewSecretValue"
+  az keyvault secret set --vault-name <key-vault-name> --name mySecret --value "myNewSecretValue"
   ```
+- Replace `<key-vault-name>` with the name of your key vault.
 - This command creates a new version of the secret mySecret with the value myNewSecretValue.
 
-#### 5. Confirm New Version in the Azure Portal
-
-##### **View the New Version in the Azure Portal**
+##### Confirm New Version in the Azure Portal
 - Open the [Azure Portal](https://portal.azure.com/).
 - Navigate to "Resource groups" in the left-hand menu.
 - Select the resource group `myResourceGroup`.
@@ -48,5 +78,12 @@ az keyvault secret set --vault-name myKeyVault --name mySecretWithOptions --valu
 - In the Key Vault, navigate to "Secrets" under the "Settings" section.
 - Confirm that the secret `mySecret` is listed.
 - Click on the secret `mySecret` to view its details.
-- Click on the "Versions" tab to view all versions of the secret.
+- Click on the Current version
 - Confirm that the new version with the value `myNewSecretValue` is listed.
+- **Note:** Key vault maintains versioned secrets. Click on the older version to view the old secret value
+- **Note:** The new version can take a minute or two to display in the portal. Keep refreshing the page until the new version appears.
+
+![alt text](images/Part3-b.png)
+
+### Next Steps  
+Proceed to Part 4 where you will create and retrieve certificates.

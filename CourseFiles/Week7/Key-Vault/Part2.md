@@ -33,7 +33,7 @@ az account show --query id --output tsv
 - These commands retrieve the object ID of the currently logged-in user and the current Subscription ID. Note down the IDs returned by the commands.
 
 
-##### Assign Key Vault Crypto Officer Role
+##### Assign The Key Vault Crypto Officer Role
 
 ```bash
 az role assignment create --role "Key Vault Crypto Officer" --assignee <user-object-id> --scope /subscriptions/<subscription-id>/resourceGroups/myResourceGroup/providers/Microsoft.KeyVault/vaults/<key-vault-name>
