@@ -22,7 +22,7 @@ az ad signed-in-user show --query id --output tsv
 az account show --query id --output tsv
 ```
 
-- This command retrieves the object ID of the currently logged-in user, and the current Subscription ID. Note down the IDs returned by the commands.
+- These commands retrieve the object ID of the currently logged-in user and the current Subscription ID. Note down the IDs returned by the commands.
 
 
 #### Assign Key Vault Crypto Officer Role
