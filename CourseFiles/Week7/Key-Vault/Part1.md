@@ -34,12 +34,21 @@
 
 - You should see output indicating the installed version of Azure CLI.  
 
-##### **Login to Azure**  
-- Use the Azure CLI to log in to your Azure account:  
-  ```bash  
-  az login  
-  ```
-- Follow the instructions to complete the login process.
+##### **Login to Azure and Select Subscription**
+
+\```bash
+az login
+\```
+
+- Use the Azure CLI to log in to your Azure account. After logging in, you will see a list of available subscriptions and a prompt to select a subscription. Select the one specified by your instructor.
+
+##### **Verify Current Tenant and Subscription**
+
+\```bash
+az account show
+\```
+
+- This command displays the details of the currently selected subscription and tenant. Verify that the correct subscription and tenant are selected.
 
 ##### **Create a Resource Group**  
 - Create a resource group to hold your Key Vault:  
@@ -48,16 +57,27 @@
   ```
 
 ##### **Create a Key Vault**  
-- Create a Key Vault in the resource group:  
-  ```bash  
-  az keyvault create --name myKeyVault --resource-group myResourceGroup --location eastus  
-  ```
+# Create a Key Vault in the resource group. Note: Key Vault names must be globally unique, which means 
+# no two Key Vaults in the world can have the same name. To ensure this, append your initials and a unique 
+# number to the Key Vault name. For example:
+
+```bash  
+az keyvault create --name myKeyVaultAN01624 --resource-group myResourceGroup --location eastus --enable-rbac-authorization
+```
+
+# Instructions:
+# - Replace `myKeyVaultAN01624` with a unique name by adding your initials and a number.
+# - If the command fails due to the name being taken, modify the number or name slightly and try again.
+# - Key Vault names can contain alphanumeric characters (letters and numbers) and hyphens, but they must 
+#   start and end with a letter or number and be between 3 and 24 characters long.
 
 ##### **View the Key Vault in the Azure Portal**  
 - Open the [Azure Portal](https://portal.azure.com/).
 - Navigate to "Resource groups" in the left-hand menu.
 - Select the resource group `myResourceGroup`.
 - Click on the Key Vault `myKeyVault` to view its details.
+
+![alt text](image.png)
 
 ### Next Steps  
 Proceed to Part 2 where you will create and retrieve keys.
