@@ -74,7 +74,7 @@ az keyvault create --name myKeyVaultAN01624 --resource-group myResourceGroup --l
 - Open the [Azure Portal](https://portal.azure.com/).
 - Navigate to "Resource groups" in the left-hand menu.
 - Select the resource group `myResourceGroup`.
-- Click on the Key Vault `myKeyVault` to view its details.
+- Click on the Key Vault to view its details.
 
 ![alt text](images/Part1.png)
 
