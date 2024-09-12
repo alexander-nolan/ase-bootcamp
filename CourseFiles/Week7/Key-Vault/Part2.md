@@ -9,7 +9,7 @@
   - **Note:** This command will fail unless the user has the appropriate RBAC role assigned, such as the **Key Vault Crypto Officer** role.
 
 
-### Assign Key Vault Crypto Officer Role to the Currently Logged-In User
+#### Assign Key Vault Crypto Officer Role to the Currently Logged-In User
 
 To assign the Key Vault Crypto Officer role to the currently logged-in user, follow these steps:
 
