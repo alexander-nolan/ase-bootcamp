@@ -20,7 +20,7 @@
 #### 2. Environment Setup
 
 ##### **Install Azure CLI**  
-1. **Azure CLI Installation**  
+**Azure CLI Installation**  
    - Follow the instructions from the official Azure website to install Azure CLI on your system:  
      - [Azure CLI for Windows](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows)  
      - [Azure CLI for Mac](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-macos)  
