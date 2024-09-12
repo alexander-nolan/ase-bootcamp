@@ -57,19 +57,18 @@ az account show
   ```
 
 ##### **Create a Key Vault**  
-# Create a Key Vault in the resource group. Note: Key Vault names must be globally unique, which means 
-# no two Key Vaults in the world can have the same name. To ensure this, append your initials and a unique 
-# number to the Key Vault name. For example:
+Create a Key Vault in the resource group. Note: Key Vault names must be globally unique, which means 
+no two Key Vaults in the world can have the same name. To ensure this, append your initials and a unique 
+number to the Key Vault name. For example:
 
 ```bash  
 az keyvault create --name myKeyVaultAN01624 --resource-group myResourceGroup --location eastus --enable-rbac-authorization
 ```
 
-# Instructions:
-# - Replace `myKeyVaultAN01624` with a unique name by adding your initials and a number.
-# - If the command fails due to the name being taken, modify the number or name slightly and try again.
-# - Key Vault names can contain alphanumeric characters (letters and numbers) and hyphens, but they must 
-#   start and end with a letter or number and be between 3 and 24 characters long.
+##### **Key Vault Naming Instructions** 
+- Replace `myKeyVaultAN01624` with a unique name by adding your initials and a number.
+- If the command fails due to the name being taken, modify the number or name slightly and try again.
+- Key Vault names can contain alphanumeric characters (letters and numbers) and hyphens, but they must start and end with a letter or number and be between 3 and 24 characters long.
 
 ##### **View the Key Vault in the Azure Portal**  
 - Open the [Azure Portal](https://portal.azure.com/).
