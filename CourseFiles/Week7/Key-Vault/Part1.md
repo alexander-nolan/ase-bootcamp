@@ -36,17 +36,17 @@
 
 ##### **Login to Azure and Select Subscription**
 
-\```bash
+```bash
 az login
-\```
+```
 
 - Use the Azure CLI to log in to your Azure account. After logging in, you will see a list of available subscriptions and a prompt to select a subscription. Select the one specified by your instructor.
 
 ##### **Verify Current Tenant and Subscription**
 
-\```bash
+```bash
 az account show
-\```
+```
 
 - This command displays the details of the currently selected subscription and tenant. Verify that the correct subscription and tenant are selected.
 
