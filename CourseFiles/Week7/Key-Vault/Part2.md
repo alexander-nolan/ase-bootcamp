@@ -17,7 +17,7 @@ To assign the Key Vault Crypto Officer role to the currently logged-in user, fol
 
 #### Get the Currently Logged-In User's Object ID, and the Current Subscription ID
 
-##### **Get User Object ID & Subscription ID **
+##### **Get User Object ID & Subscription ID**
 
 ```bash
 az ad signed-in-user show --query id --output tsv
