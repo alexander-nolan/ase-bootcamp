@@ -10,20 +10,22 @@
   - Replace `<key-vault-name>` with the name of your key vault.
   - **Note:** This command will fail unless the user has the appropriate RBAC role assigned, such as the **Key Vault Crypto Officer** role.
 
+
 ### Assign Key Vault Crypto Officer Role to the Currently Logged-In User
 
 To assign the Key Vault Crypto Officer role to the currently logged-in user, follow these steps:
 
-#### Get the Currently Logged-In User's Object ID
+#### Get the Currently Logged-In User's Object ID, and the Current Subscription ID
 
-##### **Get User Object ID**
+##### **Get User Object ID & Subscription ID **
 
 ```bash
 az ad signed-in-user show --query id --output tsv
 az account show --query id --output tsv
 ```
 
-- This command retrieves the object ID of the currently logged-in user. Note down the object ID returned by the command.
+- This command retrieves the object ID of the currently logged-in user, and the current Subscription ID. Note down the IDs returned by the commands.
+
 
 #### Assign Key Vault Crypto Officer Role
 
@@ -38,6 +40,7 @@ az role assignment create --role "Key Vault Crypto Officer" --assignee <user-obj
 - Replace `<key-vault-name>` with the name of your key vault.
 - This command assigns the Key Vault Crypto Officer role to the currently logged-in user for the Key Vault.
 
+
 #### Verify Role Assignment
 
 ##### **Check Role Assignment**
@@ -51,7 +54,8 @@ az role assignment list --assignee <user-object-id> --scope /subscriptions/<subs
 - Replace `<key-vault-name>` with the name of your key vault.
 - This command lists the role assignments for the specified user and scope, allowing you to verify that the Key Vault Crypto Officer role has been assigned.
 
-##### **Create a Key**
+
+#### Create a Key
 
   ```bash
   az keyvault key create --vault-name <key-vault-name> --name myKey --protection software --kty RSA --size 2048 --ops encrypt decrypt sign verify
@@ -59,9 +63,9 @@ az role assignment list --assignee <user-object-id> --scope /subscriptions/<subs
   - Replace `<key-vault-name>` with the name of your key vault.
   - **Note:** This command should now work, now that your identity has been assigned the **Key Vault Crypto Officer** role.
 
+
 #### Retrieve the Key
 
-##### **Retrieve the Key**
 - Use the Azure CLI to retrieve the key from the Key Vault:
   ```bash
   az keyvault key show --vault-name <key-vault-name> --name myKey
