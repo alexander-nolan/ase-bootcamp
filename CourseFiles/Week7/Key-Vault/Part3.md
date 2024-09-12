@@ -16,9 +16,6 @@
 az role assignment create --role "Key Vault Secrets Officer" --assignee <user-object-id> --scope /subscriptions/<subscription-id>/resourceGroups/myResourceGroup/providers/Microsoft.KeyVault/vaults/<key-vault-name>
 ```
 
-- Replace `<user-object-id>` with the object ID obtained from the previous step.
-- Replace `<subscription-id>` with your Azure subscription ID.
-- Replace `<key-vault-name>` with the name of your key vault.
 - This command assigns the Key Vault Secrets Officer role to the currently logged-in user for the Key Vault.
 
 ##### Verify Role Assignments
@@ -27,9 +24,6 @@ az role assignment create --role "Key Vault Secrets Officer" --assignee <user-ob
 az role assignment list --assignee <user-object-id> --scope /subscriptions/<subscription-id>/resourceGroups/myResourceGroup/providers/Microsoft.KeyVault/vaults/<key-vault-name> --output table
 ```
 
-- Replace `<user-object-id>` with the object ID obtained earlier.
-- Replace `<subscription-id>` with your Azure subscription ID.
-- Replace `<key-vault-name>` with the name of your key vault.
 - This command lists the role assignments for the specified user and scope, allowing you to verify that both the Key Vault Crypto Officer and Key Vault Secrets Officer roles have now been assigned.
 
 #### 3. Create and Retrieve Secrets
@@ -39,7 +33,7 @@ az role assignment list --assignee <user-object-id> --scope /subscriptions/<subs
   ```bash
 az keyvault secret set --vault-name <key-vault-name> --name mySecret --value "mySecretValue" --description "This is a test secret with additional options" --tags env=test --content-type "text/plain"
   ```
-- Replace `<key-vault-name>` with the name of your key vault.
+
 - This command creates a secret with the value mySecretValue, a description, tags it with env=test, and sets the content type to text/plain.
 
 ##### Retrieve the Secret
@@ -67,7 +61,6 @@ az keyvault secret set --vault-name <key-vault-name> --name mySecret --value "my
   ```bash
   az keyvault secret set --vault-name <key-vault-name> --name mySecret --value "myNewSecretValue"
   ```
-- Replace `<key-vault-name>` with the name of your key vault.
 - This command creates a new version of the secret mySecret with the value myNewSecretValue.
 
 ##### Confirm New Version in the Azure Portal
