@@ -2,8 +2,6 @@
 
 #### Attempt to Create a Key in the Key Vault
 
-##### **Create a Key**
-
   ```bash
   az keyvault key create --vault-name <key-vault-name> --name myKey --protection software --kty RSA --size 2048 --ops encrypt decrypt sign verify
   ```
@@ -17,8 +15,6 @@ To assign the Key Vault Crypto Officer role to the currently logged-in user, fol
 
 #### Get the Currently Logged-In User's Object ID, and the Current Subscription ID
 
-##### **Get User Object ID & Subscription ID**
-
 ```bash
 az ad signed-in-user show --query id --output tsv
 az account show --query id --output tsv
@@ -28,8 +24,6 @@ az account show --query id --output tsv
 
 
 #### Assign Key Vault Crypto Officer Role
-
-##### **Assign Role to User**
 
 ```bash
 az role assignment create --role "Key Vault Crypto Officer" --assignee <user-object-id> --scope /subscriptions/<subscription-id>/resourceGroups/myResourceGroup/providers/Microsoft.KeyVault/vaults/<key-vault-name>
@@ -42,8 +36,6 @@ az role assignment create --role "Key Vault Crypto Officer" --assignee <user-obj
 
 
 #### Verify Role Assignment
-
-##### **Check Role Assignment**
 
 ```bash
 az role assignment list --assignee <user-object-id> --scope /subscriptions/<subscription-id>/resourceGroups/myResourceGroup/providers/Microsoft.KeyVault/vaults/<key-vault-name> --output table
