@@ -77,7 +77,7 @@ az keyvault create --name myKeyVaultAN01624 --resource-group myResourceGroup --l
 - Select the resource group `myResourceGroup`.
 - Click on the Key Vault `myKeyVault` to view its details.
 
-![alt text](image.png)
+![alt text](images/Part1.png)
 
 ### Next Steps  
 Proceed to Part 2 where you will create and retrieve keys.
