@@ -30,10 +30,8 @@ az keyvault update \
 ##### **Get Public IP Address**
 
 ```bash
-export MY_PUBLIC_IP=$(curl -s https://api.ipify.org)
-echo $MY_PUBLIC_IP
+curl https://api.ipify.org
 ```
-
 
 - This command retrieves your public IP address. Note down the IP address returned by the command.
 
@@ -45,10 +43,10 @@ echo $MY_PUBLIC_IP
 az keyvault network-rule add \
   --resource-group myResourceGroup \
   --name myKeyVault \
-  --ip-address $MY_PUBLIC_IP
+  --ip-address <your-public-ip-address>
 ```
 
-- This command adds an IP address rule to the Key Vault `myKeyVault`, allowing access from your public IP address stored in the `MY_PUBLIC_IP` environment variable.
+- Replace `<your-public-ip-address>` with the IP address obtained from the previous step. This command adds an IP address rule to the Key Vault `myKeyVault`, allowing access from your public IP address.
 
 #### 5. Verify Access Granted in Azure Portal
 
