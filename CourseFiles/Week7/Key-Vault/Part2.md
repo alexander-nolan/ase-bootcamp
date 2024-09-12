@@ -75,8 +75,6 @@ az role assignment list --assignee <user-object-id> --scope /subscriptions/<subs
   ```
 
 ##### Confirm Key Creation in the Azure Portal
-
-##### **View the Key in the Azure Portal**
 - Open the [Azure Portal](https://portal.azure.com/).
 - Navigate to "Resource groups" in the left-hand menu.
 - Select the resource group `myResourceGroup`.
