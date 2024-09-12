@@ -1,6 +1,14 @@
 ### Part 2: Creating and Retrieving Keys
 
-#### 1. Assign Roles
+#### 1. Introduction
+
+##### **Overview of the Lab Objectives**
+- Attempt to create a key in the Azure Key Vault.
+- Understand the role-based access control (RBAC) requirements for managing keys.
+- Assign the appropriate RBAC role to the currently logged-in user.
+- Successfully create and retrieve keys from the Key Vault.
+
+#### 2. Assign Roles
 
 #### Attempt to Create a Key in the Key Vault
 
@@ -48,7 +56,7 @@ az role assignment list --assignee <user-object-id> --scope /subscriptions/<subs
 - Replace `<key-vault-name>` with the name of your key vault.
 - This command lists the role assignments for the specified user and scope, allowing you to verify that the Key Vault Crypto Officer role has been assigned.
 
-#### 2. Create and Retrieve Keys
+#### 3. Create and Retrieve Keys
 
 #### Create a Key
 
