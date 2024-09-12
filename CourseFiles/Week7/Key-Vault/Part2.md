@@ -1,5 +1,7 @@
 ### Part 2: Creating and Retrieving Keys
 
+#### 1. Assign Roles
+
 #### Attempt to Create a Key in the Key Vault
 
   ```bash
@@ -46,6 +48,7 @@ az role assignment list --assignee <user-object-id> --scope /subscriptions/<subs
 - Replace `<key-vault-name>` with the name of your key vault.
 - This command lists the role assignments for the specified user and scope, allowing you to verify that the Key Vault Crypto Officer role has been assigned.
 
+#### 2. Create and Retrieve Keys
 
 #### Create a Key
 
