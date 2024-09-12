@@ -3,17 +3,6 @@
 #### 1. Create a Key in the Key Vault
 
 ##### **Create a Key**
-- Use the Azure CLI to create a key in the Key Vault:
-  ```bash
-  az keyvault key create --vault-name myKeyVault --name myKey --protection software
-  ```
-
-
-### Part 2: Creating and Retrieving Keys
-
-#### 1. Create a Key in the Key Vault
-
-##### **Create a Key**
 
   ```bash
   az keyvault key create --vault-name myKeyVault --name myKey --protection software --kty RSA --size 2048 --ops encrypt decrypt sign verify
