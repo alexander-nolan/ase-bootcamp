@@ -98,3 +98,27 @@ az keyvault certificate create --vault-name myKeyVault --name myCertificate --po
 - Click on the certificate `myCertificate` to view its details.
 - Click on the "Versions" tab to view all versions of the certificate.
 - Confirm that the new version is listed.
+
+#### 4. Export the Certificate
+
+##### **Export the Certificate**
+
+```bash
+az keyvault secret download --vault-name myKeyVault --name myCertificate --file myCertificate.pem
+```
+
+- This command exports the certificate named `myCertificate` from the Key Vault `myKeyVault` to a file named `myCertificate.pem`.
+
+##### **Convert the Certificate to PFX Format**
+
+```bash
+openssl pkcs12 -export -out myCertificate.pfx -in myCertificate.pem
+```
+
+- This command converts the PEM-formatted certificate to PFX format, which is commonly used for importing certificates into various applications.
+
+#### 5. Confirm Exported Certificate
+
+##### **View the Exported Certificate**
+- Open the exported certificate file `myCertificate.pem` or `myCertificate.pfx` using a text editor or certificate management tool.
+- Confirm that the certificate details match the original certificate created in the Key Vault.
