@@ -36,7 +36,10 @@ az account show --query id --output tsv
 ##### Assign The Key Vault Crypto Officer Role
 
 ```bash
-az role assignment create --role "Key Vault Crypto Officer" --assignee <user-object-id> --scope /subscriptions/<subscription-id>/resourceGroups/myResourceGroup/providers/Microsoft.KeyVault/vaults/<key-vault-name>
+az role assignment create \
+  --role "Key Vault Crypto Officer" \
+  --assignee <user-object-id> \
+  --scope /subscriptions/<subscription-id>/resourceGroups/myResourceGroup/providers/Microsoft.KeyVault/vaults/<key-vault-name>
 ```
 
 - Replace `<user-object-id>` with the object ID obtained from the previous step.
