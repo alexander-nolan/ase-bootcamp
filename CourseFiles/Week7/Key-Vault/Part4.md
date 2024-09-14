@@ -1,6 +1,6 @@
 ### Part 4: Creating and Retrieving Certificates
 
-#### 1. Introduction
+#### Introduction
 
 ##### **Overview of the Lab Objectives**
 - Understand the role-based access control (RBAC) requirements for managing certificates.
@@ -8,7 +8,7 @@
 - Successfully create and retrieve certificates from the Key Vault.
 - Create a new version of your certificate.
 
-#### 2. Assign Roles
+#### Assign Roles
 
 ##### Assign The Key Vault Certificates Officer Role
 
@@ -24,11 +24,11 @@ az role assignment create --role "Key Vault Certificates Officer" --assignee <us
 az role assignment list --assignee <user-object-id> --scope /subscriptions/<subscription-id>/resourceGroups/myResourceGroup/providers/Microsoft.KeyVault/vaults/<key-vault-name> --output table
 ```
 
-- This command lists the role assignments for the specified user and scope, allowing you to verify that the Key Vault Crypto Officer, thw Key Vault Secrets Officer and the Key Vault Certificates Officer roles have now been assigned.
+- This command lists the role assignments for the specified user and scope, allowing you to verify that the Key Vault Crypto Officer, the Key Vault Secrets Officer and the Key Vault Certificates Officer roles have now been assigned.
 
-#### 3. Create and Retrieve Secrets
+#### Create and Retrieve Secrets
 
-#####  Create a policy.json file
+##### Create a policy.json file
 
 ```json
 {
@@ -87,7 +87,7 @@ az keyvault certificate show --vault-name <key-vault-name> --name myCertificate
 
 - This command retrieves the details of the certificate named `myCertificate` from the Key Vault `<key-vault-name>`.
 
-#### 3. Confirm Certificate Creation in the Azure Portal
+#### Confirm Certificate Creation in the Azure Portal
 
 ##### **View the Certificate in the Azure Portal**
 - Open the [Azure Portal](https://portal.azure.com/).
@@ -102,7 +102,7 @@ az keyvault certificate show --vault-name <key-vault-name> --name myCertificate
 
 ![alt text](images/Part4-a.png)
 
-#### 4. Export the Certificate
+#### Export the Certificate
 
 ##### **Export the Certificate**
 
@@ -133,7 +133,7 @@ Export-PfxCertificate -Cert "Cert:\LocalMachine\My\<certificate_thumbprint>" -Fi
 
 - This command converts the PEM-formatted certificate to PFX format, which is commonly used for importing certificates into various applications.
 
-#### 5. Confirm Exported Certificate
+#### Confirm Exported Certificate
 
 ##### **View the Exported Certificate**
 - Open the exported certificate file `myCertificate.pem` or `myCertificate.pfx` using a certificate management tool.
