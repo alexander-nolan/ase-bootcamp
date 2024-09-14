@@ -1,6 +1,6 @@
 ### Part 3: Creating and Retrieving Secrets
 
-#### 1. Introduction
+#### Introduction
 
 ##### **Overview of the Lab Objectives**
 - Understand the role-based access control (RBAC) requirements for managing keys.
@@ -8,7 +8,7 @@
 - Successfully create and retrieve secrets from the Key Vault.
 - Create a new version of your secret.
 
-#### 2. Assign Roles
+#### Assign Roles
 
 ##### Assign The Key Vault Secrets Officer Role
 
@@ -26,7 +26,7 @@ az role assignment list --assignee <user-object-id> --scope /subscriptions/<subs
 
 - This command lists the role assignments for the specified user and scope, allowing you to verify that both the Key Vault Crypto Officer and Key Vault Secrets Officer roles have now been assigned.
 
-#### 3. Create and Retrieve Secrets
+#### Create and Retrieve Secrets
 
 ##### Create a Secret
 
