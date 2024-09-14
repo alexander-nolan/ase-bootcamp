@@ -64,7 +64,11 @@ no two Key Vaults in the world can have the same name. To ensure this, append yo
 number to the Key Vault name. For example:
 
 ```bash  
-az keyvault create --name myKeyVaultAN01624 --resource-group myResourceGroup --location eastus --enable-rbac-authorization
+az keyvault create \
+  --name myKeyVaultAN01624 \
+  --resource-group myResourceGroup \
+  --location eastus \
+  --enable-rbac-authorization
 ```
 
 ##### **Key Vault Naming Instructions** 
