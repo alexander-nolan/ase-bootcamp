@@ -61,7 +61,12 @@ az role assignment list --assignee <user-object-id> --scope /subscriptions/<subs
 ##### Create a Key
 
   ```bash
-  az keyvault key create --vault-name <key-vault-name> --name myKey --protection software --kty RSA --size 2048 --ops encrypt decrypt sign verify
+  az keyvault key create --vault-name <key-vault-name> \
+  --name myKey \
+  --protection software \
+  --kty RSA \
+  --size 2048 \
+  --ops encrypt decrypt sign verify
   ```
   - Replace `<key-vault-name>` with the name of your key vault.
   - **Note:** This command should now work, now that your identity has been assigned the **Key Vault Crypto Officer** role.
