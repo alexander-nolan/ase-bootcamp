@@ -1,6 +1,6 @@
 ### Part 1: Introduction and Setup  
 
-#### 1. Introduction  
+#### Introduction  
 
 ##### **Overview of the Lab Objectives**  
 - Set up an Azure Key Vault using Azure CLI.
@@ -17,7 +17,7 @@
 - **Azure Subscription**: Required to create and manage Azure resources.
 - **Key Vault**: Azure service for managing secrets, keys, and certificates.
 
-#### 2. Environment Setup
+#### Environment Setup
 
 ##### **Install Azure CLI**  
 **Azure CLI Installation**  
@@ -50,7 +50,7 @@ az account show
 
 - This command displays the details of the currently selected subscription and tenant. Verify that the correct subscription and tenant are selected.
 
-#### 3. Create a Key Vault 
+#### Create a Key Vault 
 
 ##### **Create a Resource Group**  
 - Create a resource group to hold your Key Vault:  

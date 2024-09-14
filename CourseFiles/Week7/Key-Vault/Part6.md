@@ -73,4 +73,4 @@ az keyvault network-rule add --resource-group myResourceGroup --name <key-vault-
 
 ![alt text](images/Part6-c.png)
 
-This section guides users through disabling public network access, verifying access denial, obtaining their public IP address, adding their IP address to the allowed list, and verifying access to the Azure Key Vault.
+This section guides users through disabling public network access, verifying access denial, obtaining their public IP address, adding their IP address to the allowed list, and verifying access to the Azure Key Vault.xxx

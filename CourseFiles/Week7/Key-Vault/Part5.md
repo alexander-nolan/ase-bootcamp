@@ -41,7 +41,7 @@ az monitor diagnostic-settings create --resource /subscriptions/<subscription-id
 ```kusto
 AzureDiagnostics
 | where ResourceType == "VAULTS" and Category == "AuditEvent"
-| project TimeGenerated, OperationName, ResultType, ResourceId
+| project TimeGenerated, OperationName, ResultType, ResourceIdffffghjnbvcdt
 ```
 
 ![alt text](images/Part5-a.png)
