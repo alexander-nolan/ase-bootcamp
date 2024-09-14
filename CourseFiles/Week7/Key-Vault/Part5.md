@@ -30,7 +30,7 @@ az monitor diagnostic-settings create \
   --workspace myWorkspace
 ```
 
-- This command enables diagnostic logging for the Key Vault `myKeyVault` and sends the logs to the Log Analytics workspace `myWorkspace`.
+- This command enables diagnostic logging for the Key Vault and sends the logs to the Log Analytics workspace `myWorkspace`.
 
 #### View Audit Logs in Azure Portal
 
