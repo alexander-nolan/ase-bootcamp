@@ -97,7 +97,10 @@ az keyvault certificate show --vault-name <key-vault-name> --name myCertificate
 - In the Key Vault, navigate to "Certificates" under the "Settings" section.
 - Confirm that the certificate `myCertificate` is listed.
 - Click on the certificate `myCertificate` to view its details.
+- Click on the current version.
 - Under the "Properties" section, confirm that the certificate properties are correctly set.
+
+![alt text](images/Part4-a.png)
 
 #### 4. Export the Certificate
 
@@ -111,14 +114,27 @@ az keyvault secret download --vault-name <key-vault-name> --name myCertificate -
 
 ##### **Convert the Certificate to PFX Format**
 
+###### **Option 1: Using Bash**
+
 ```bash
 openssl pkcs12 -export -out myCertificate.pfx -in myCertificate.pem
 ```
 
 - This command converts the PEM-formatted certificate to PFX format, which is commonly used for importing certificates into various applications.
 
+###### **Option 2: Using PowerShell**
+
+```powershell
+$password = ConvertTo-SecureString -String "your_password" -Force -AsPlainText
+Export-PfxCertificate -Cert "Cert:\LocalMachine\My\<certificate_thumbprint>" -FilePath "myCertificate.pfx" -Password $password
+```
+
+- This command converts the certificate to PFX format in a PowerShell environment.
+
+- This command converts the PEM-formatted certificate to PFX format, which is commonly used for importing certificates into various applications.
+
 #### 5. Confirm Exported Certificate
 
 ##### **View the Exported Certificate**
-- Open the exported certificate file `myCertificate.pem` or `myCertificate.pfx` using a text editor or certificate management tool.
+- Open the exported certificate file `myCertificate.pem` or `myCertificate.pfx` using a certificate management tool.
 - Confirm that the certificate details match the original certificate created in the Key Vault.
