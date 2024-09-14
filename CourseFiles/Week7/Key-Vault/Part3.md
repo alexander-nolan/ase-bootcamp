@@ -31,7 +31,13 @@ az role assignment list --assignee <user-object-id> --scope /subscriptions/<subs
 ##### Create a Secret
 
   ```bash
-az keyvault secret set --vault-name <key-vault-name> --name mySecret --value "mySecretValue" --description "This is a test secret with additional options" --tags env=test --content-type "text/plain"
+az keyvault secret set \
+  --vault-name <key-vault-name> \
+  --name mySecret \
+  --value "mySecretValue" \
+  --description "This is a test secret with additional options" \
+  --tags env=test \
+  --content-type "text/plain"
   ```
 
 - This command creates a secret with the value mySecretValue, a description, tags it with env=test, and sets the content type to text/plain.
