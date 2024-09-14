@@ -1,16 +1,34 @@
 ### Part 4: Creating and Retrieving Certificates
 
-#### 1. Create a Certificate in the Key Vault
+#### 1. Introduction
 
-##### **Create a Certificate**
+##### **Overview of the Lab Objectives**
+- Understand the role-based access control (RBAC) requirements for managing certificates.
+- Assign the appropriate RBAC role to the currently logged-in user.
+- Successfully create and retrieve certificates from the Key Vault.
+- Create a new version of your certificate.
+
+#### 2. Assign Roles
+
+##### Assign The Key Vault Certificates Officer Role
 
 ```bash
-az keyvault certificate create --vault-name myKeyVault --name myCertificate --policy @policy.json
+az role assignment create --role "Key Vault Certificates Officer" --assignee <user-object-id> --scope /subscriptions/<subscription-id>/resourceGroups/myResourceGroup/providers/Microsoft.KeyVault/vaults/<key-vault-name>
 ```
 
-- This command creates a certificate named `myCertificate` in the Key Vault `myKeyVault` using the policy defined in the `policy.json` file.
+- This command assigns the Key Vault Secrets Officer role to the currently logged-in user for the Key Vault.
 
-##### **Example Policy File (policy.json)**
+##### Verify Role Assignments
+
+```bash
+az role assignment list --assignee <user-object-id> --scope /subscriptions/<subscription-id>/resourceGroups/myResourceGroup/providers/Microsoft.KeyVault/vaults/<key-vault-name> --output table
+```
+
+- This command lists the role assignments for the specified user and scope, allowing you to verify that the Key Vault Crypto Officer, thw Key Vault Secrets Officer and the Key Vault Certificates Officer roles have now been assigned.
+
+#### 3. Create and Retrieve Secrets
+
+#####  Create a policy.json file
 
 ```json
 {
@@ -51,18 +69,23 @@ az keyvault certificate create --vault-name myKeyVault --name myCertificate --po
   }
 }
 ```
-
 - This policy file defines the properties of the certificate, including the key type, key size, subject, and validity period.
 
-#### 2. Retrieve the Certificate
+##### **Create a Certificate**
+
+```bash
+az keyvault certificate create --vault-name <key-vault-name> --name myCertificate --policy @policy.json
+```
+
+- This command creates a certificate named `myCertificate` in the Key Vault using the policy defined in the `policy.json` file.
 
 ##### **Retrieve the Certificate**
 
 ```bash
-az keyvault certificate show --vault-name myKeyVault --name myCertificate
+az keyvault certificate show --vault-name <key-vault-name> --name myCertificate
 ```
 
-- This command retrieves the details of the certificate named `myCertificate` from the Key Vault `myKeyVault`.
+- This command retrieves the details of the certificate named `myCertificate` from the Key Vault `<key-vault-name>`.
 
 #### 3. Confirm Certificate Creation in the Azure Portal
 
@@ -70,44 +93,21 @@ az keyvault certificate show --vault-name myKeyVault --name myCertificate
 - Open the [Azure Portal](https://portal.azure.com/).
 - Navigate to "Resource groups" in the left-hand menu.
 - Select the resource group `myResourceGroup`.
-- Click on the Key Vault `myKeyVault`.
+- Click on the Key Vault.
 - In the Key Vault, navigate to "Certificates" under the "Settings" section.
 - Confirm that the certificate `myCertificate` is listed.
 - Click on the certificate `myCertificate` to view its details.
 - Under the "Properties" section, confirm that the certificate properties are correctly set.
-
-#### 4. Create a New Version of the Certificate
-
-##### **Create a New Version of the Certificate**
-
-```bash
-az keyvault certificate create --vault-name myKeyVault --name myCertificate --policy @policy.json
-```
-
-- This command creates a new version of the certificate `myCertificate` in the Key Vault `myKeyVault` using the same policy file.
-
-#### 5. Confirm New Version in the Azure Portal
-
-##### **View the New Version in the Azure Portal**
-- Open the [Azure Portal](https://portal.azure.com/).
-- Navigate to "Resource groups" in the left-hand menu.
-- Select the resource group `myResourceGroup`.
-- Click on the Key Vault `myKeyVault`.
-- In the Key Vault, navigate to "Certificates" under the "Settings" section.
-- Confirm that the certificate `myCertificate` is listed.
-- Click on the certificate `myCertificate` to view its details.
-- Click on the "Versions" tab to view all versions of the certificate.
-- Confirm that the new version is listed.
 
 #### 4. Export the Certificate
 
 ##### **Export the Certificate**
 
 ```bash
-az keyvault secret download --vault-name myKeyVault --name myCertificate --file myCertificate.pem
+az keyvault secret download --vault-name <key-vault-name> --name myCertificate --file myCertificate.pem
 ```
 
-- This command exports the certificate named `myCertificate` from the Key Vault `myKeyVault` to a file named `myCertificate.pem`.
+- This command exports the certificate named `myCertificate` from the Key Vault to a file named `myCertificate.pem`.
 
 ##### **Convert the Certificate to PFX Format**
 
