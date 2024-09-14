@@ -124,10 +124,10 @@ openssl pkcs12 -export -out myCertificate.pfx -in myCertificate.pem
 
 ###### **Option 2: Using PowerShell**
 
-```powershell
+<!-- ```powershell
 $password = ConvertTo-SecureString -String "your_password" -Force -AsPlainText
 Export-PfxCertificate -Cert "Cert:\LocalMachine\My\<certificate_thumbprint>" -FilePath "myCertificate.pfx" -Password $password
-```
+``` -->
 
 - This command converts the certificate to PFX format in a PowerShell environment.
 
