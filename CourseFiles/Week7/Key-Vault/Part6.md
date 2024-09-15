@@ -2,7 +2,7 @@
 
 Network isolation is essential for securing your Azure Key Vault by restricting access to specific virtual networks and IP addresses. This ensures that only authorized resources can access your Key Vault.
 
-#### 1. Disable Access from Public Networks
+#### Disable Access from Public Networks
 
 ##### **Disable Public Network Access**
 
@@ -12,7 +12,7 @@ az keyvault update --name <key-vault-name> --resource-group myResourceGroup --pu
 
 - This command disables public network access to the Key Vault `myKeyVault`, ensuring that only private network access is allowed.
 
-#### 2. Verify Access Denied in Azure Portal
+#### Verify Access Denied in Azure Portal
 
 ##### **Attempt to Access Key Vault**
 
@@ -24,7 +24,7 @@ az keyvault update --name <key-vault-name> --resource-group myResourceGroup --pu
 
 ![alt text](images/Part6-a.png)
 
-#### 3. Get User's Public IP Address
+#### Get User's Public IP Address
 
 ##### **Get Public IP Address**
 
@@ -34,7 +34,7 @@ curl https://api.ipify.org
 
 - This command retrieves your public IP address. Note down the IP address returned by the command.
 
-#### 4. Add User's IP Address to Allowed List
+#### Add User's IP Address to Allowed List
 
 ##### **Enable Public Network Access With a default action of Deny**
 
@@ -54,7 +54,7 @@ az keyvault network-rule add --resource-group myResourceGroup --name <key-vault-
 ```
 - Replace `<your-public-ip-address>` with the IP address obtained from the previous step. This command adds an IP address rule to the Key Vault, allowing access from your public IP address.
 
-#### 5. View Network Access in Azure Portal
+#### View Network Access in Azure Portal
 
 ##### **View Network Access Configuration**
 
@@ -65,7 +65,7 @@ az keyvault network-rule add --resource-group myResourceGroup --name <key-vault-
 - Verify that your IP address is listed under the "Firewall and virtual networks" section.
 
 ![alt text](images/Part6-b.png)
-#### 6. Verify Access Granted in Azure Portal
+#### Verify Access Granted in Azure Portal
 
 ##### **Attempt to Access Key Vault Again**
 
