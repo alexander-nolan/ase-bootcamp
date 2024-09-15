@@ -158,5 +158,5 @@ kubectl logs <pod-name>
 ![alt text](images/Part2-a.png)
 
 ### Next Steps
-Proceed to Part 5 where you will learn how to secure and monitor the application in AKS.
+Proceed to Part 5 where you will learn how to monitor the application in Azure.
 ```
