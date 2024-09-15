@@ -39,7 +39,11 @@ curl https://api.ipify.org
 ##### **Enable Public Network Access With a default action of Deny**
 
 ```bash
-az keyvault update --resource-group myResourceGroup --name <key-vault-name> --public-network-access Enabled --default-action Deny
+az keyvault update \
+  --resource-group myResourceGroup \
+  --name <key-vault-name> \
+  --public-network-access Enabled \
+  --default-action Deny
 ```
 - This command enables public network access for the Key Vault and sets the default action to `Deny`.
 
