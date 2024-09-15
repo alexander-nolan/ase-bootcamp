@@ -43,7 +43,7 @@ helm repo update
 
 - This command updates the local Helm chart repository cache.
 
-#### Deploy an Open Source Sample Application
+#### Deploy a Sample Application
 
 ##### **Deploy WordPress Using Helm**
 
@@ -74,7 +74,7 @@ kubectl get svc --namespace default my-wordpress
 
 ##### **Access the WordPress Application**
 - Open a web browser and navigate to the external IP address obtained in the previous step.
-- You should see the WordPress welcome page.
+- You should see the WordPress sample application page.
 
 ![alt text](images/Part2-a.png)
 
