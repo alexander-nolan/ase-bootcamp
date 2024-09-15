@@ -1,4 +1,3 @@
-```markdown
 ### Part 4: Debugging the WordPress Application
 
 #### Introduction
@@ -17,7 +16,6 @@
 #### Simulate a Failure
 
 ##### **Break the WordPress Deployment**
-
 
 **Scale the Deployment to 0 Replicas**
 
