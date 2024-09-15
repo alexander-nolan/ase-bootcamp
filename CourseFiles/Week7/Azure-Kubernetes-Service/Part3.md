@@ -13,8 +13,6 @@
 - Ensure you have completed Part 1 and Part 2 of the lab.
 - Ensure `kubectl` and `helm` CLI tools are installed and configured.
 
-#### Enable Node Autoscaler
-
 ##### **Enable Cluster Autoscaler**
 
 ```bash
@@ -24,9 +22,23 @@ az aks update --resource-group myResourceGroup --name myAKSCluster --enable-clus
 - This command enables the cluster autoscaler for the AKS cluster, allowing it to automatically adjust the number of nodes based on the workload.
 - The cluster autoscaler adjusts the number of nodes (virtual machines) in the AKS cluster. This is useful when the cluster needs more resources (CPU, memory) to run additional pods.
 
+##### **Verify Autoscaling Configuration**
+
+```bash
+az aks show --resource-group myResourceGroup --name myAKSCluster --query "agentPoolProfiles[].{Name:name,MinCount:minCount,MaxCount:maxCount,EnableAutoScaling:enableAutoScaling}"
+```
+
+- This command verifies the autoscaling configuration for the AKS cluster, displaying the name, minimum count, maximum count, and autoscaling status of the node pools.
+
 #### Scale the WordPress Application
 
-##### **Manually Scale the Deployment to 3 Replicas**
+##### **Check the Current Number of Pods**
+
+```bash
+kubectl get pods
+```
+
+##### **Scale the Deployment to 3 Replicas**
 
 ```bash
 kubectl scale deployment my-wordpress --replicas=3
