@@ -65,8 +65,6 @@ az account show
 
 #### Create an AKS Cluster
 
-Create an AKS cluster in the resource group. Note: Cluster names must be unique within the resource group. To ensure this, append your initials and a unique number to the cluster name. For example:
-
 ```bash
 az aks create \
   --resource-group myResourceGroup \
