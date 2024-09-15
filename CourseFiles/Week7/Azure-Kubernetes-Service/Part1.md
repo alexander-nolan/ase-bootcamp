@@ -69,7 +69,12 @@ az account show
 Create an AKS cluster in the resource group. Note: Cluster names must be unique within the resource group. To ensure this, append your initials and a unique number to the cluster name. For example:
 
 ```bash
-az aks create --resource-group myResourceGroup --name myAKSCluster --node-count 2 --enable-addons monitoring --generate-ssh-keys
+az aks create \
+  --resource-group myResourceGroup \
+  --name myAKSCluster \
+  --node-count 2 \
+  --enable-addons monitoring \
+  --generate-ssh-keys
 ```
 - **Note:** This command can take up to 10 minutes to complete.
 
