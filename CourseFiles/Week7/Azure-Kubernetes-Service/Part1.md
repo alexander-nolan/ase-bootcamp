@@ -96,7 +96,6 @@ kubectl get pods --namespace kube-system
 - Select the resource group [`myResourceGroup`].
 - Click on the AKS cluster [`myAksCluster`] to view its details.
 
-
 ![alt text](images/Part1.png)
 
 ##### **Familiarize Yourself with the AKS Cluster**
