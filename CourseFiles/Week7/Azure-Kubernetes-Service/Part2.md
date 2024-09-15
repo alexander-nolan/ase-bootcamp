@@ -1,4 +1,4 @@
-### Part 2: Deploying an Open Source Sample Application with Helm
+### Part 2: Deploying a Sample Application with Helm
 
 #### Introduction
 
