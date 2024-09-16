@@ -5,16 +5,21 @@ Yes, AKS can pull secrets directly from Azure Key Vault using the Azure Key Vaul
 **Set Up Azure Key Vault**:
    - Ensure your Key Vault is set up and contains the necessary secrets.
 
-**Create an AKS Cluster with Managed Identity**:
+**Enable Managed Identity on Your AKS Cluster**:
    - Enable Managed Identity on your AKS Cluster.
-     ```sh
-     az aks update --resource-group <resource-group> --name <aks-cluster-name> --enable-managed-identity
-     ```
+   ```sh
+   az aks update --resource-group <resource-group> --name <aks-cluster-name> --enable-managed-identity
+   ```
 
-**Assign Key Vault Access Policy to Managed Identity**:
-   - Go to your Key Vault.
-   - Navigate to **Access policies** > **Add Access Policy**.
-   - Select the managed identity of your AKS cluster and grant it **Get** and **List** permissions for secrets.
+**Assign Key Vault Administrator Role to Managed Identity**:
+   - Get the managed identity object ID of your AKS cluster:
+   ```sh
+   az aks show --resource-group <resource-group> --name <aks-cluster-name> --query "identityProfile.kubeletidentity.objectId" -o tsv
+   ```
+   - Assign the Key Vault Administrator role to the managed identity:
+   ```sh
+   az role assignment create --assignee <managed-identity-object-id> --role "Key Vault Administrator" --scope /subscriptions/<subscription-id>/resourceGroups/<resource-group>/providers/Microsoft.KeyVault/vaults/<key-vault-name>
+   ```
 
 **Install Azure Key Vault Provider for Secrets Store CSI Driver**:
    - Follow the instructions to install the Azure Key Vault Provider for Secrets Store CSI Driver in your AKS cluster:
