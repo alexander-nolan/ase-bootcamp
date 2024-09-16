@@ -2,28 +2,28 @@ Yes, AKS can pull secrets directly from Azure Key Vault using the Azure Key Vaul
 
 ### Step-by-Step Guide
 
-1. **Set Up Azure Key Vault**:
+**Set Up Azure Key Vault**:
    - Ensure your Key Vault is set up and contains the necessary secrets.
 
-2. **Create an AKS Cluster with Managed Identity**:
+**Create an AKS Cluster with Managed Identity**:
    - Ensure your AKS cluster is set up with a managed identity. If not, you can create one using the Azure CLI:
      ```sh
      az aks create --resource-group <resource-group> --name <aks-cluster-name> --enable-managed-identity
      ```
 
-3. **Assign Key Vault Access Policy to Managed Identity**:
+**Assign Key Vault Access Policy to Managed Identity**:
    - Go to your Key Vault.
    - Navigate to **Access policies** > **Add Access Policy**.
    - Select the managed identity of your AKS cluster and grant it **Get** and **List** permissions for secrets.
 
-4. **Install Azure Key Vault Provider for Secrets Store CSI Driver**:
+**Install Azure Key Vault Provider for Secrets Store CSI Driver**:
    - Follow the instructions to install the Azure Key Vault Provider for Secrets Store CSI Driver in your AKS cluster:
      ```sh
      helm repo add csi-secrets-store-provider-azure https://azure.github.io/secrets-store-csi-driver-provider-azure/charts
      helm install csi-secrets-store-provider-azure/csi-secrets-store-provider-azure --generate-name
      ```
 
-5. **Create a SecretProviderClass**:
+**Create a SecretProviderClass**:
    - Create a `SecretProviderClass` resource to define how secrets are retrieved from Azure Key Vault:
      ```yaml
      apiVersion: secrets-store.csi.x-k8s.io/v1
@@ -47,7 +47,7 @@ Yes, AKS can pull secrets directly from Azure Key Vault using the Azure Key Vaul
          tenantId: "<your-tenant-id>"
      ```
 
-6. **Deploy Your Application**:
+**Deploy Your Application**:
    - Update your Kubernetes deployment to use the `SecretProviderClass` and mount the secrets as environment variables or volumes.
 
 ### Example Kubernetes Deployment YAML
