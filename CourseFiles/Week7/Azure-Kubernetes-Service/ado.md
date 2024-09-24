@@ -158,6 +158,22 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ```
 
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: non-critical-workload
+spec:
+  tolerations:
+  - key: "taintKey"
+    operator: "Equal"
+    value: "virtual-node"
+    effect: "NoSchedule"
+  containers:
+  - name: non-critical-container
+    image: nginx
+```
+
 
 
 
