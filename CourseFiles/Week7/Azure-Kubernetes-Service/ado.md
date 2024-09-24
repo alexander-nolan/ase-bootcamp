@@ -34,3 +34,36 @@ steps:
         existingSecret=wordpress-secrets
       install: true
 ```
+
+```sh
+Starting: AzureKeyVault@2
+==============================================================================
+Task         : Azure Key Vault
+Description  : Download Azure Key Vault secrets in a pipeline
+Version      : 2.2.4
+Author       : Microsoft Corporation
+Help         : https://aka.ms/azurekeyvaulttroubleshooting
+==============================================================================
+##[command]Connecting to Azure Key Vault using 'MyServiceConnection'
+##[command]Retrieving secrets from Key Vault 'MyKeyVault'
+##[command]Successfully retrieved secret 'databasePassword' and added to pipeline variables
+##[command]Successfully retrieved secret 'apiKey' and added to pipeline variables
+Finishing: AzureKeyVault@2
+```
+
+```sh
+# Command Line Task Log
+Starting: CommandLine
+==============================================================================
+Task         : Command Line
+Description  : Run a command line script using Bash on Linux and macOS and cmd.exe on Windows
+Version      : 2.182.0
+Author       : Microsoft Corporation
+Help         : https://docs.microsoft.com/azure/devops/pipelines/tasks/utility/command-line
+==============================================================================
+##[command]echo "The retrieved database password is: $(databasePassword)"
+The retrieved database password is: mySecurePassword123
+##[command]echo "The retrieved API key is: $(apiKey)"
+The retrieved API key is: abc123XYZ
+Finishing: CommandLine
+```
