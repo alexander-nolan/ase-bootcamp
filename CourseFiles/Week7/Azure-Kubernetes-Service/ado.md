@@ -143,6 +143,21 @@ prodSecretPass
 }
 ```
 
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: aks-admins-cluster-role-binding
+subjects:
+- kind: Group
+  name: "AKS-Admins"  # This is the Azure AD group name
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+```
+
 
 
 
