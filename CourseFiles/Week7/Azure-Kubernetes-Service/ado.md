@@ -174,6 +174,14 @@ spec:
     image: nginx
 ```
 
+```sh
+helm repo add aad-pod-identity https://azure.github.io/aad-pod-identity
+helm repo update
+```
+
+```sh
+helm install aad-pod-identity aad-pod-identity/aad-pod-identity --namespace kube-system
+```
 
 
 
