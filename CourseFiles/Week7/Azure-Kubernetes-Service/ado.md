@@ -67,3 +67,41 @@ The retrieved database password is: mySecurePassword123
 The retrieved API key is: abc123XYZ
 Finishing: CommandLine
 ```
+
+```sh
+kubectl get secret wordpress-secrets -n dev -o yaml
+```
+
+```yaml
+apiVersion: v1
+data:
+  mariadbRootPassword: bXlTZWNyZXRQYXNzd29yZA==
+  wordpressPassword: c3VwZXJTZWNyZXRQYXNzd29yZA==
+kind: Secret
+metadata:
+  name: wordpress-secrets
+  namespace: dev
+type: Opaque
+```
+
+```sh
+kubectl get secret wordpress-secrets -n prod -o yaml
+```
+
+```yaml
+apiVersion: v1
+data:
+  mariadbRootPassword: cHJvZFNlY3JldFBhc3N3b3==
+  wordpressPassword: cHJvZFN1cGVyU2VjcmV0UG==
+kind: Secret
+metadata:
+  name: wordpress-secrets
+  namespace: dev
+type: Opaque
+```
+
+
+
+
+
+
