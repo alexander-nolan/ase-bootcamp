@@ -99,6 +99,19 @@ metadata:
   namespace: dev
 type: Opaque
 ```
+### Command to Decode the Secret Values
+
+To decode the Base64 encoded secret values for readability:
+```sh
+echo cHJvZFNlY3JldFBhc3M= | base64 --decode
+```
+
+This will output the decoded secret value:
+```sh
+prodSecretPass
+```
+
+
 
 
 
