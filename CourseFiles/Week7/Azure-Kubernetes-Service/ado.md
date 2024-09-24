@@ -175,7 +175,8 @@ spec:
 ```
 
 ```sh
-helm repo add aad-pod-identity https://azure.github.io/aad-pod-identity
+helm repo add aad-pod-identity \
+https://azure.github.io/aad-pod-identity
 helm repo update
 ```
 
