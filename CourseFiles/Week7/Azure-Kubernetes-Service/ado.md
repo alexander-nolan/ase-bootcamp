@@ -114,13 +114,12 @@ prodSecretPass
 ```json
 {
   "properties": {
-    "displayName": "Enforce HTTPS for App Services",
-    "policyType": "BuiltIn",
-    "mode": "Indexed",
-    "description": "This policy ensures that HTTPS is required for all App Services to provide secure communication.",
+    "displayName": "Enforce Network Policies for AKS Namespaces",
+    "description": "Ensure that all AKS namespaces have network policies defined.",
+    "policyType": "Custom",
+    "mode": "Microsoft.Kubernetes.Data",
     "metadata": {
-      "version": "1.0.0",
-      "category": "App Service"
+      "category": "Kubernetes"
     },
     "parameters": {},
     "policyRule": {
@@ -128,11 +127,11 @@ prodSecretPass
         "allOf": [
           {
             "field": "type",
-            "equals": "Microsoft.Web/sites"
+            "equals": "Microsoft.Kubernetes/connectedClusters"
           },
           {
-            "field": "Microsoft.Web/sites/httpsOnly",
-            "equals": false
+            "field": "Microsoft.Kubernetes/namespaces/podSecurityPolicyTemplateSpec.networkPolicies",
+            "exists": "false"
           }
         ]
       },
@@ -142,6 +141,7 @@ prodSecretPass
     }
   }
 }
+```
 
 
 
