@@ -111,7 +111,37 @@ This will output the decoded secret value:
 prodSecretPass
 ```
 
-
+```json
+{
+  "properties": {
+    "displayName": "Enforce HTTPS for App Services",
+    "policyType": "BuiltIn",
+    "mode": "Indexed",
+    "description": "This policy ensures that HTTPS is required for all App Services to provide secure communication.",
+    "metadata": {
+      "version": "1.0.0",
+      "category": "App Service"
+    },
+    "parameters": {},
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Web/sites"
+          },
+          {
+            "field": "Microsoft.Web/sites/httpsOnly",
+            "equals": false
+          }
+        ]
+      },
+      "then": {
+        "effect": "deny"
+      }
+    }
+  }
+}
 
 
 
