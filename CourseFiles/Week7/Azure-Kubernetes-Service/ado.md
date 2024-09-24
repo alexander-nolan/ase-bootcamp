@@ -180,7 +180,9 @@ helm repo update
 ```
 
 ```sh
-helm install aad-pod-identity aad-pod-identity/aad-pod-identity --namespace kube-system
+helm install aad-pod-identity \
+aad-pod-identity/aad-pod-identity \
+--namespace kube-system
 ```
 
 
