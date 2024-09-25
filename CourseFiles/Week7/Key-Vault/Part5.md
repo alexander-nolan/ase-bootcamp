@@ -32,14 +32,19 @@ az monitor diagnostic-settings create \
 
 - This command enables diagnostic logging for the Key Vault and sends the logs to the Log Analytics workspace `myWorkspace`.
 
-#### View Audit Logs in Azure Portal
+### View Audit Logs in Azure Portal
 
-##### **View Audit Logs**
+#### View Audit Logs
 
-- Craft a kusto query in your log analytics workspace that outputs all key vault audit activity, but scope it specifically to the key vault you created.
-- Backup and restore a key vault item. Rerun your query. Do you see any new events?
-- Enable the 'Request' and 'Errors' log categories on the diagnostic setting you created. Generate new activity. Create keys, delete keys etc
-- Rerun your query one more time but this time, scope it to a different log category.
+- **Kusto Query:** Construct a Kusto query in your Log Analytics workspace that filters all Key Vault audit activity. Make sure to scope it specifically to the Key Vault you created to isolate relevant events.
+  
+- **Backup and Restore:** Perform a backup and restore operation on a Key Vault item. Rerun your query to check for any new events related to these activities.
+
+- **Enable Log Categories:** Update the diagnostic settings for your Key Vault to include the 'Request' and 'Errors' log categories. Perform actions like creating or deleting keys to generate new log entries.
+
+- **Refine Your Query:** Rerun your query, this time focusing on the new log categories. Observe and analyze the changes in log data to better understand how different activities are logged in Key Vault.
+
+**Note:** Regularly review and update your diagnostic settings and queries to ensure comprehensive monitoring and auditing of Key Vault activities.
 
 ### Next Steps  
 Proceed to Part 6 where you will configure different network isolation options
