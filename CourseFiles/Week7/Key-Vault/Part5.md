@@ -36,18 +36,10 @@ az monitor diagnostic-settings create \
 
 ##### **View Audit Logs**
 
-- Open the [Azure Portal](https://portal.azure.com/).
-- Navigate to "Log Analytics workspaces" in the left-hand menu.
-- Select the workspace `myWorkspace`.
-- In the workspace, navigate to "Logs" under the "General" section.
-- Use the following query to view Key Vault audit logs:
+- Craft a kusto query in your log analytics workspace that outputs all key vault audit activity, but scope it specifically to the key vault you created.
+- Backup and restore a key vault item. Rerun your query. Do you see any new events?
+- Enable the 'Request' and 'Errors' log categories on the diagnostic setting you created. Generate new activity. Create keys, delete keys etc
+- Rerun your query one more time but this time, scope it to a different log category.
 
-```kusto
-AzureDiagnostics
-| where ResourceType == "VAULTS" and Category == "AuditEvent"
-| project TimeGenerated, OperationName, ResultType, ResourceIdffffghjnbvcdt
-```
-
-![alt text](images/Part5-a.png)
-
-- This query filters the logs to show only Key Vault audit events and displays relevant information such as the time of the event, operation name, result type, and resource ID.
+### Next Steps  
+Proceed to Part 6 where you will configure different network isolation options

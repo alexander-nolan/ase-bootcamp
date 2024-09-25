@@ -84,3 +84,6 @@
 - Use the tool of your choice to view the certificate information locally. 
 - Convert the certificate to '.pfx' format
 - Upload the '.pfx' formatted cert to key vault.
+
+### Next Steps  
+Proceed to Part 5 where you will aufit key vault activity
