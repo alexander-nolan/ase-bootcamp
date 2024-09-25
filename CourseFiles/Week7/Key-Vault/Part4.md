@@ -79,8 +79,6 @@
 
 ##### **Convert the Certificate to PFX Format**
 
-###### **Option 1: Using Bash**
-
 - Use the tool of your choice to view the certificate information locally. 
 - Convert the certificate to '.pfx' format
 - Upload the '.pfx' formatted cert to key vault.
