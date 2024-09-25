@@ -35,7 +35,7 @@
 az login
 ```
 
-- Use the Azure CLI to log in to your Azure account. After logging in, you will see a list of available subscriptions and a prompt to select a subscription. Select the one specified by your instructor.
+- Use AZ CLI to log in to your Azure account. After logging in, you will see a list of available subscriptions and a prompt to select a subscription. Select the one specified by your instructor.
 
 ##### **Verify Current Tenant and Subscription**
 

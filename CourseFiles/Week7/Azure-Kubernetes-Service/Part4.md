@@ -1,162 +1,69 @@
-### Part 4: Debugging the WordPress Application
+# Part 4: Debugging the WordPress Application
 
-#### Introduction
+## Introduction
 
-##### **Overview of the Lab Objectives**
+### **Overview of the Lab Objectives**
 - Simulate a failure in the WordPress deployment.
-- Use debugging tools and techniques to identify and diagnose the issue.
-- Fix the problem and verify the solution.
+- Utilize debugging tools and techniques to identify and diagnose the issue.
+- Resolve the problem and verify the solution.
 
-#### Environment Setup
+## Environment Setup
 
-##### **Prerequisites**
-- Ensure you have completed Part 1, Part 2, and Part 3 of the lab.
-- Ensure `kubectl` and `helm` CLI tools are installed and configured.
+### **Prerequisites**
+- Complete Parts 1, 2, and 3 of the lab.
+- Ensure that both `kubectl` and `helm` CLI tools are installed and properly configured.
 
-#### Simulate a Failure
+## Simulate a Failure
 
-##### **Break the WordPress Deployment**
+### **Break the WordPress Deployment**
 
-**Scale the Deployment to 0 Replicas**
+#### **Scale the Deployment to 0 Replicas**
+- Reduce the WordPress deployment to zero replicas to stop all running pods. 
+- *Hint: Use the `kubectl` command to scale down the deployment.*
 
-```bash
-kubectl scale deployment my-wordpress --replicas=0
-```
+#### **Edit the WordPress Deployment to Introduce an Error**
+- Modify the deployment to use an invalid image name. 
+- *Hint: Change the `image` tag under `spec.template.spec.containers`.*
 
-- This command scales the WordPress deployment to 0 replicas, effectively stopping all running pods.
+#### **Scale the Deployment to 1 Replica**
+- Scale up the deployment to one replica to initiate the pod creation with the invalid image. This will simulate the failure scenario.
 
-**Edit the WordPress Deployment to Introduce an Error**
+## Debug the Application
 
-```bash
-kubectl edit deployment my-wordpress
-```
+### **Check the Status of the Pods**
+- List the current status of the pods to verify if they are in a `CrashLoopBackOff` or `ImagePullBackOff` state.
 
-**Modify the Image Name to an Invalid Value**
+### **Describe the Failing Pod**
+- View detailed information about the failing pod, including events and error messages, to identify the issue.
 
-- Change the image name under `spec.template.spec.containers` to an invalid value.
-- If you're struggling to find the correct line, do a search for 'wordpress:'. It should be the first result.
+### **Check the Logs of the Failing Pod**
+- Retrieve and review the logs from the failing pod to further diagnose the problem. The logs will provide insights into why the pod is not starting correctly.
+- *Hint: Use the `kubectl logs <pod-name>` command.*
 
-```yaml
-image: bitnami/wordpress:invalid-tag
-```
+### **Browse to the Application**
+- Attempt to access the WordPress application using the service's external IP address. Confirm that the application is not available due to the simulated failure.
 
-- Save and exit the editor.
+## Fix the Problem
 
-**Scale the Deployment to 1 Replica**
+### **Scale the Deployment to 0 Replicas**
+- Scale down the WordPress deployment to zero replicas before making any changes.
 
-```bash
-kubectl scale deployment my-wordpress --replicas=1
-```
+### **Edit the WordPress Deployment to Correct the Error**
+- Revert the image name to a valid value in the deployment configuration.
 
-- This command scales the WordPress deployment to 1 replica, starting a new pod with the invalid image.
+### **Scale the Deployment to 1 Replica**
+- Scale up the deployment to one replica to start a new pod with the correct image.
 
-#### Debug the Application
+### **Verify the Fix**
 
-##### **Check the Status of the Pods**
+#### **Check the Status of the Pods**
+- Confirm that the WordPress pods have reached a `Running` state, indicating the issue has been resolved.
 
-```bash
-kubectl get pods
-```
+#### **Check the Logs of the Fixed Pod**
+- Verify the logs of the running pod to ensure the application is functioning correctly.
 
-- This command lists the pods in the default namespace, showing the status of the WordPress pods. After a couple of minutes, you should see that the pods are in a `CrashLoopBackOff` or `ImagePullBackOff` state.
-
-##### **Describe the Failing Pod**
-
-```bash
-kubectl describe pod <pod-name>
-```
-
-- Replace `<pod-name>` with the name of one of the failing pods. This command provides detailed information about the pod, including events and error messages.
-- You should see something similar to this:
-  ```
-  Normal   Pulling                 70s (x4 over 2m33s)  kubelet                  Pulling image "docker.io/bitnami/wordpress:invalid-tag"
-  Warning  Failed                  70s (x4 over 2m33s)  kubelet                  Failed to pull image "docker.io/bitnami/wordpress:invalid-tag": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/wordpress:invalid-tag": failed to resolve reference "docker.io/bitnami/wordpress:invalid-tag": docker.io/bitnami/wordpress:invalid-tag: not found
-  ```
-
-##### **Check the Logs of the Failing Pod**
-
-```bash
-kubectl logs <pod-name>
-```
-
-- Replace `<pod-name>` with the name of one of the failing pods. This command retrieves the logs from the pod, which can help identify the cause of the failure.
-- You should see something similar to this:
-  ```
-  Defaulted container "wordpress" out of: wordpress, prepare-base-dir (init)
-  Error from server (BadRequest): container "wordpress" in pod "my-wordpress-54c6f47595-b5pd9" is waiting to start: trying and failing to pull image
-  ```
-- As you can see, it is failing to pull an image with a non-existent tag.
-
-##### **Browse to the Application**
-
-```bash
-kubectl get svc --namespace default my-wordpress
-```
-
-- This command retrieves the external IP address of the WordPress service. Open a web browser and navigate to the external IP address. This request should eventually time out.
-![alt text](images/Part4-a.png)
-
-
-#### Fix the Problem
-
-**Scale the Deployment to 0 Replicas**
-
-```bash
-kubectl scale deployment my-wordpress --replicas=0
-```
-
-##### **Edit the WordPress Deployment to Correct the Error**
-
-```bash
-kubectl edit deployment my-wordpress
-```
-
-- Change the image name back to the correct value, for example:
-
-```yaml
-image: bitnami/wordpress:latest
-```
-
-- Save and exit the editor.
-
-**Scale the Deployment to 1 Replica**
-
-```bash
-kubectl scale deployment my-wordpress --replicas=1
-```
-
-- This command scales the WordPress deployment to 1 replica, starting a new pod with the `latest` image.
-
-##### **Verify the Fix**
-
-```bash
-kubectl get pods
-```
-
-- This command lists the pods in the default namespace, showing the status of the WordPress pods. The pods should eventually reach a `Running` state.
-
-##### **Describe the Failing Pod**
-
-```bash
-kubectl describe pod <pod-name>
-```
-
-- Replace `<pod-name>` with the name of one of the failing pods. This command provides detailed information about the pod, including events and error messages.
-
-##### **Check the Logs of the Fixed Pod**
-
-```bash
-kubectl logs <pod-name>
-```
-
-- Replace `<pod-name>` with the name of one of the running pods. This command retrieves the logs from the pod, confirming that the application is running correctly.
-
-##### **Browse to the Application**
-
-- Open a web browser and navigate to the external IP address to verify that the application is now running correctly.
-
-![alt text](images/Part2-a.png)
+### **Browse to the Application**
+- Access the WordPress application through the external IP to confirm that it is now running as expected.
 
 ### Next Steps
 Proceed to Part 5 where you will learn how to monitor the application in Azure.
-```

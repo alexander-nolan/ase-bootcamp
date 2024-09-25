@@ -1,61 +1,32 @@
-Yes, AKS can pull secrets directly from Azure Key Vault using the Azure Key Vault Provider for Secrets Store CSI Driver. This allows you to mount secrets, keys, and certificates stored in Azure Key Vault as Kubernetes secrets.
+# Step-by-Step Guide for Integrating Azure Key Vault with AKS
 
-### Step-by-Step Guide
+## **Set Up Azure Key Vault**
+- Ensure your Azure Key Vault is created and contains the necessary secrets that your application will use.
 
-**Set Up Azure Key Vault**:
-   - Ensure your Key Vault is set up and contains the necessary secrets.
+## **Enable Managed Identity on Your AKS Cluster**
+- Update your AKS cluster to enable Managed Identity. This will allow the cluster to authenticate with Azure resources without using secrets.
+- *Hint: Use AZ CLI command to update the AKS cluster configuration.*
 
-**Enable Managed Identity on Your AKS Cluster**:
-   - Enable Managed Identity on your AKS Cluster.
-   ```sh
-   az aks update --resource-group <resource-group> --name <aks-cluster-name> --enable-managed-identity
-   ```
+## **Assign Key Vault Administrator Role to Managed Identity**
+1. Retrieve the managed identity object ID of your AKS cluster.
+2. Assign the `Key Vault Administrator` role to this identity for your Key Vault resource.
+- *Hint: Use Azure CLI commands to get the object ID and assign roles.*
 
-**Assign Key Vault Administrator Role to Managed Identity**:
-   - Get the managed identity object ID of your AKS cluster:
-   ```sh
-   az aks show --resource-group <resource-group> --name <aks-cluster-name> --query "identityProfile.kubeletidentity.objectId" -o tsv
-   ```
-   - Assign the Key Vault Administrator role to the managed identity:
-   ```sh
-   az role assignment create --assignee <managed-identity-object-id> --role "Key Vault Administrator" --scope /subscriptions/<subscription-id>/resourceGroups/<resource-group>/providers/Microsoft.KeyVault/vaults/<key-vault-name>
-   ```
+## **Install Azure Key Vault Provider for Secrets Store CSI Driver**
+```bash
+helm repo add csi-secrets-store-provider-azure https://azure.github.io/secrets-store-csi-driver-provider-azure/charts
+helm install csi-secrets-store-provider-azure/csi-secrets-store-provider-azure --generate-name
+```
 
-**Install Azure Key Vault Provider for Secrets Store CSI Driver**:
-   - Follow the instructions to install the Azure Key Vault Provider for Secrets Store CSI Driver in your AKS cluster:
-     ```sh
-     helm repo add csi-secrets-store-provider-azure https://azure.github.io/secrets-store-csi-driver-provider-azure/charts
-     helm install csi-secrets-store-provider-azure/csi-secrets-store-provider-azure --generate-name
-     ```
+## **Create a SecretProviderClass**
+- Define a `SecretProviderClass` resource in Kubernetes to specify how secrets will be accessed from Azure Key Vault. 
+- *Hint: Use a YAML configuration file to set parameters such as Key Vault name and object details.*
 
-**Create a SecretProviderClass**:
-   - Create a `SecretProviderClass` resource to define how secrets are retrieved from Azure Key Vault:
-     ```yaml
-     apiVersion: secrets-store.csi.x-k8s.io/v1
-     kind: SecretProviderClass
-     metadata:
-       name: azure-keyvault
-     spec:
-       provider: azure
-       parameters:
-         usePodIdentity: "false"
-         useVMManagedIdentity: "true"  # Set to true for using managed identity
-         userAssignedIdentityID: ""  # Optional, if using user-assigned identity
-         keyvaultName: "<your-key-vault-name>"
-         cloudName: ""  # [OPTIONAL for Azure] if not provided, azure environment will default to AzurePublicCloud
-         objects: |
-           array:
-             - |
-               objectName: "<your-secret-name>"
-               objectType: secret        # object types: secret, key or cert
-               objectVersion: ""         # [OPTIONAL] object versions, default to latest if empty
-         tenantId: "<your-tenant-id>"
-     ```
+## **Deploy Your Application**
+- Update your Kubernetes deployment to reference the `SecretProviderClass`. This will allow the application to retrieve secrets from Key Vault and use them as environment variables or mounted files.
+- *Hint: Modify your deployment YAML to include environment variables or volume mounts based on the secrets.*
 
-**Deploy Your Application**:
-   - Update your Kubernetes deployment to use the `SecretProviderClass` and mount the secrets as environment variables or volumes.
-
-### Example Kubernetes Deployment YAML
+## **Example Kubernetes Deployment YAML**
 
 Here’s an example of how to configure your Kubernetes deployment to use secrets from Azure Key Vault:
 
@@ -97,13 +68,34 @@ spec:
 ---
 apiVersion: v1
 kind: Secret
-
-
-metadata
-
-:
+metadata:
   name: my-secret
 type: Opaque
 data:
   my-secret-key: <base64-encoded-secret-value>
 ```
+
+### **Deploy the SecretProviderClass Resource**
+- Apply the `SecretProviderClass` YAML configuration using `kubectl` to define how secrets should be accessed and mounted in the pods.
+
+### **Verify the Setup**
+- Ensure that the secrets are successfully being pulled into your AKS pods from Azure Key Vault by checking the mounted volumes or environment variables in your pods.
+
+### **Troubleshooting Tips**
+- Check the logs of the CSI driver pods for any errors or warnings if secrets are not being pulled as expected.
+- Verify that the managed identity has the necessary permissions to access the Key Vault.
+
+This guide provides a detailed step-by-step approach to integrating Azure Key Vault with AKS, using managed identity and the Secrets Store CSI Driver.
+
+### Lab Completion
+
+Congratulations! You have successfully completed the lab. You have learned how to:
+
+- Set up and configure an AKS cluster.
+- Deploy applications and scale them within the AKS environment.
+- Debug and resolve issues in Kubernetes deployments.
+- Monitor and secure your applications using Azure's monitoring tools.
+- Use Log Analytics to filter and analyze pod logs for troubleshooting.
+- Integrated AKS with Azure Key Vault
+
+Explore further labs or exercises to continue expanding your knowledge of AKS and Kubernetes.

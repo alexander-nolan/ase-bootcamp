@@ -1,28 +1,53 @@
-### Part 6: Network Isolation
+# Part 6: Network Isolation for Azure Key Vault
 
-Network isolation is essential for securing your Azure Key Vault by restricting access to specific virtual networks and IP addresses. This ensures that only authorized resources can access your Key Vault.
+## **Introduction**
+Network isolation is crucial for securing Azure Key Vault by restricting access to specific virtual networks and IP addresses. This ensures that only authorized resources can access your Key Vault, reducing the risk of unauthorized data access.
 
-#### Disable Access from Public Networks
+## **Steps to Implement Network Isolation**
 
-##### **Disable Public Network Access**
+### **1. Disable Access from Public Networks**
 
-- Disable public access on your key vault
-- Attempt to access some of the items you previously created.
+Disabling public network access helps prevent any unauthorized access attempts from outside your designated network.
 
-##### **Get Public IP Address**
+**Disable Public Network Access:**
+- Go to your Key Vault in the Azure Portal.
+- Navigate to the **Networking** section.
+- Remove public access.
 
+*Note: After making this change, all public access to your Key Vault will be blocked.*
+
+**Test Access Restrictions:**
+- Attempt to access Key Vault resources, such as secrets or certificates, from a public network.
+- Verify that access is denied.
+
+### **2. Enable Public Network Access with Restrictions**
+
+If you need limited public access, you can configure the Key Vault to allow only specific IP addresses.
+
+**Get Your Public IP Address:**
 - Retrieve your public IP address.
+- Record the IP address for use in the next step.
 
-##### **Enable Public Network Access With a default action of Deny**
+**Enable Public Network Access with Restrictions:**
+- Enable public network access on your Key Vault.
+- Set the network configuration to allow only your recorded IP address.
+- Save the changes.
 
-- Use AZ CLI to enable public access, but only to your own IP address.
-- Verify the configuration using the portal. You should see that only your IP is now allowed.
-- Attempt to access your resources again. 
+**Verify Configuration:**
+- Access the Key Vault from your allowed IP address.
+- Check in the Azure Portal under the **Networking** section to see your IP listed with a status of **Allow**.
 
-##### Delete your key vault
+### **3. Deleting the Key Vault**
 
-- Attempt to delete the key vault you created. 
-- If you receive errors upon deletion, understand why. Work through the errors until your Key Vauly is deleted.
+Deleting a Key Vault can sometimes generate errors. Follow these steps to troubleshoot:
 
-### Next Steps  
-Proceed to Part 7 where you will use terraform to re-create your key vault
+**Attempt to Delete the Key Vault:**
+- Try deleting the Key Vault through the Azure Portal or Azure CLI.
+
+**Troubleshoot Deletion Errors:**
+- If you encounter errors, review the errors generated and determine the reason for failure.
+- Make necessary adjustments.
+- Delete the Key Vault.
+
+### **Next Steps**
+Proceed to Part 7, where you will use Terraform to re-create your Key Vault.

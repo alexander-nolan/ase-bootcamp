@@ -74,7 +74,7 @@ az role assignment list --assignee <user-object-id> --scope /subscriptions/<subs
 
 ##### Retrieve the Key
 
-- Use the Azure CLI to retrieve the key from the Key Vault:
+- Use AZ CLI to retrieve the key from the Key Vault:
   ```bash
   az keyvault key show --vault-name <key-vault-name> --name myKey
   ```

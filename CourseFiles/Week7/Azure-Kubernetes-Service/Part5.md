@@ -1,42 +1,13 @@
 ### Part 5: Monitoring the AKS Workload
 
-#### Monitoring the Application
+## Monitoring the Application
 
-##### **Access the Monitoring Dashboard**
+### **Access the Monitoring Dashboard**
+- Retrieve the Log Analytics workspace associated with your AKS cluster.
+- *Hint: Use AZ CLI to get the workspace resource ID.*
 
-```bash
-az aks show --resource-group myResourceGroup --name myAKSCluster --query addonProfiles.omsagent.config.logAnalyticsWorkspaceResourceID -o tsv
-```
-
-- This command retrieves the Log Analytics workspace resource ID.
-
-
-#### View Pod Error Logs in Azure Portal
-
-- Open the [Azure Portal](https://portal.azure.com/).
-- Navigate to "Log Analytics workspaces" in the left-hand menu.
-- Select the workspace exposed in the previous command.
-- In the workspace, navigate to "Logs" under the "General" section.
-- Use the following query to view your wordpress pod error logs:
-
-```kusto
-KubePodInventory
-| where ClusterName == "myAKSCluster"
-| where Namespace == "default"
-| where ServiceName == "my-wordpress"
-| where ContainerStatusReason == "ImagePullBackOff" or ContainerStatusReason == "CrashLoopBackOff"
-| order by TimeGenerated desc
-```
-![alt text](images/Part5-a.png)
-
-### Lab Completion
-
-Congratulations! You have successfully completed the lab. You have learned how to:
-- Create an AKS cluster
-- Deploy an application to AKS
-- Scale AKS deployments
-- Simulate and debug failures in a Kubernetes deployment.
-- Secure and monitor your application in AKS.
-- Use Log Analytics to view and analyze pod error logs.
-
-Feel free to explore further or proceed to additional labs to deepen your understanding of AKS and Kubernetes.
+### **View Pod Error Logs in Azure Portal**
+- Go to the [Azure Portal](https://portal.azure.com/).
+- Navigate to **Log Analytics workspaces** and select the workspace linked to your AKS cluster.
+- Under the "Logs" section, query your WordPress pod error logs by filtering for specific pod status reasons like `ImagePullBackOff` or `CrashLoopBackOff`.
+- *Hint: Use Kusto Query Language (KQL) in the "Logs" section to filter and view pod errors.*

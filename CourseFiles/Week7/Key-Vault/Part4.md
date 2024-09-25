@@ -12,13 +12,13 @@
 
 - Use Azure documentation to find the role that allows you to create Key Vault secrets.
 
-- Use the Azure CLI to assign the identified role to your user account. Keep the 'Prinicpal of least privilege' in mind when identifying and selecting your role. 
+- Use AZ CLI to assign the identified role to your user account. Keep the 'Prinicpal of least privilege' in mind when identifying and selecting your role. 
 
-##### Verify Role Assignments
+### **Verify Role Assignments**
+- Check that the role has been correctly assigned to your user by listing their role assignments.
 
-- Use the Azure Portal to check the existing role assignments on your key vault.
+*Hint: Use commands to list role assignments and confirm the permissions.*
 
-#### Create and Retrieve Secrets
 
 ##### Create a policy.json file
 
@@ -63,13 +63,14 @@
 ```
 - This policy file defines the properties of the certificate, including the key type, key size, subject, and validity period.
 
-##### **Create a Certificate**
+### **Retrieve the Certificate**
+- Retrieve the certificate details from your Key Vault to verify its creation and configuration.
 
-- Use AZ CLI to create a certificate file. Specify the policy file you created earlier.
+*Hint: Use Azure CLI commands to display certificate details.*
 
-##### **Retrieve the Certificate**
-
-- Retrieve your certificate using both the CLI and the portal.
+### **Verify the Certificate in the Azure Portal**
+1. Go to the Azure Portal and navigate to your Key Vault.
+2. Check the **Certificates** section to confirm that the certificate is listed and view its details.
 
 #### Export the Certificate
 
@@ -77,11 +78,13 @@
 
 - Use AZ CLI to export the certificate to your local machine in '.pem' format.
 
-##### **Convert the Certificate to PFX Format**
+### **Convert the Certificate to PFX Format**
+- Use OpenSSL or another tool to convert the PEM-formatted certificate to PFX format, commonly used for importing into various applications.
 
-- Use the tool of your choice to view the certificate information locally. 
-- Convert the certificate to '.pfx' format
-- Upload the '.pfx' formatted cert to key vault.
+*Hint: Ensure you have the necessary tools installed for certificate conversion.*
+
+### **Confirm the Exported Certificate**
+- View the exported certificate file using a certificate management tool to ensure it matches the original properties set in the Key Vault.
 
 ### Next Steps  
 Proceed to Part 5 where you will aufit key vault activity

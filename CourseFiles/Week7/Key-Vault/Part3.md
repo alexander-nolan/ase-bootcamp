@@ -14,7 +14,7 @@
 
 - Use Azure documentation to find the role that allows you to create Key Vault secrets.
 
-- Use the Azure CLI to assign the identified role to your user account. Keep the 'Prinicpal of least privilege' in mind when identifying and selecting your role.
+- Use AZ CLI to assign the identified role to your user account. Keep the 'Prinicpal of least privilege' in mind when identifying and selecting your role.
 
 ##### Verify Role Assignments
 
@@ -26,9 +26,9 @@ az role assignment list --assignee <user-object-id> --scope /subscriptions/<subs
 
 #### Create and Retrieve Secrets
 
-- Use the Azure CLI to create a secret in your Key Vault. 
+- Use AZ CLI to create a secret in your Key Vault. 
 
-- Use the Azure CLI to output the secret from your Key Vault.
+- Use AZ CLI to output the secret from your Key Vault.
 
 ##### Confirm Secret Creation in the Azure Portal
 - Open the [Azure Portal](https://portal.azure.com/).

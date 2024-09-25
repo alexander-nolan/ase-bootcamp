@@ -106,7 +106,7 @@ az webapp create --resource-group myResourceGroup --plan myAppServicePlan --name
 ```bash  
 npm run build  
 ```  
-4. Deploy the build output to the Azure Web App using the Azure CLI or an automated CI/CD pipeline.  
+4. Deploy the build output to the Azure Web App using AZ CLI or an automated CI/CD pipeline.  
    
 **d.) Update Single-SPA Root Config**  
 5. Update the `import-map` in the root config `projectmanagement/src/index.ejs` file to point to the deployed URLs of the micro front-ends:  
