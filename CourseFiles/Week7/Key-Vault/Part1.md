@@ -53,11 +53,13 @@ az account show
 #### Create a Key Vault 
 
 ##### **Create a Resource Group**  
-# NEED TO GENERATE UNIQUE NAME FOR EACH RESOURCE GROUP IF EVERY STUDENT USING SAME TENANT
 - Create a resource group to hold your Key Vault:  
   ```bash  
   az group create --name myResourceGroup --location eastus  
   ```
+
+##### **Resource Group Naming Instructions** 
+- Resource Groups need to be unique within a subscription. If you receive an error message about a naming conflict. Simply try another name for your resource group and attempt to create it again.
 
 ##### **Create a Key Vault**  
 Create a Key Vault in the resource group. Note: Key Vault names must be globally unique, which means 

@@ -10,13 +10,11 @@
 
 #### Assign Roles
 
-##### Assign The Key Vault Secrets Officer Role
+##### Assign The Appropriate RBAC Role
 
-```bash
-az role assignment create --role "Key Vault Secrets Officer" --assignee <user-object-id> --scope /subscriptions/<subscription-id>/resourceGroups/myResourceGroup/providers/Microsoft.KeyVault/vaults/<key-vault-name>
-```
+- Use Azure documentation to find the role that allows you to create Key Vault secrets.
 
-- This command assigns the Key Vault Secrets Officer role to the currently logged-in user for the Key Vault.
+- Use the Azure CLI to assign the identified role to your user account. Keep the 'Prinicpal of least privilege' in mind when identifying and selecting your role.
 
 ##### Verify Role Assignments
 
@@ -28,26 +26,9 @@ az role assignment list --assignee <user-object-id> --scope /subscriptions/<subs
 
 #### Create and Retrieve Secrets
 
-##### Create a Secret
+- Use the Azure CLI to create a secret in your Key Vault. 
 
-  ```bash
-az keyvault secret set \
-  --vault-name <key-vault-name> \
-  --name mySecret \
-  --value "mySecretValue" \
-  --description "This is a test secret with additional options" \
-  --tags env=test \
-  --content-type "text/plain"
-  ```
-
-- This command creates a secret with the value mySecretValue, a description, tags it with env=test, and sets the content type to text/plain.
-
-##### Retrieve the Secret
-
-  ```bash
-  az keyvault secret show --vault-name <key-vault-name> --name mySecret --query value
-  ```
-- Replace `<key-vault-name>` with the name of your key vault.
+- Use the Azure CLI to output the secret from your Key Vault.
 
 ##### Confirm Secret Creation in the Azure Portal
 - Open the [Azure Portal](https://portal.azure.com/).
@@ -64,26 +45,15 @@ az keyvault secret set \
 
 ##### Create a New Version of the Secret
 
-  ```bash
-  az keyvault secret set --vault-name <key-vault-name> --name mySecret --value "myNewSecretValue"
-  ```
-- This command creates a new version of the secret mySecret with the value myNewSecretValue.
+- Determine how to create a new version of the secret using either the Azure portal or CLI. 
+- View both versions of the secret.
+- Use Azure CLI to retrieve the old version of the secret.
 
-##### Confirm New Version in the Azure Portal
-- Open the [Azure Portal](https://portal.azure.com/).
-- Navigate to "Resource groups" in the left-hand menu.
-- Select the resource group `myResourceGroup`.
-- Click on the Key Vault `myKeyVault`.
-- In the Key Vault, navigate to "Secrets" under the "Settings" section.
-- Confirm that the secret `mySecret` is listed.
-- Click on the secret `mySecret` to view its details.
-- Click on the Current version
-- Confirm that the new version with the value `myNewSecretValue` is listed.
-- **Note:** Key vault maintains versioned secrets. Click on the older version to view the old secret value
-- **Note:** Take a look at the content type and tags on both versions of the secrets.
-- **Note:** The new version can take a minute or two to display in the portal. Keep refreshing the page until the new version appears.
-
-![alt text](images/Part3-b.png)
+##### Additional Secret Management tasks
+- Download a backup of your secret. 
+- Delete the secret in the Azure Portal
+- Attempt to restore your secret. If this fails, find out why. Has the secret really been deleted?
+- Restore your secret.
 
 ### Next Steps  
 Proceed to Part 4 where you will create and retrieve certificates.
