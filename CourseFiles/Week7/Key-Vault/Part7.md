@@ -5,8 +5,9 @@ In this part, you'll learn how to automate the creation and management of Azure 
 
 ## **Terraform Installation**
 
-# Install Terraform using Chocolatey
+```bash
 choco install terraform
+```
 
 **Note:** If you don't have Chocolatey installed, you can follow the instructions at chocolatey.org/install.
 
