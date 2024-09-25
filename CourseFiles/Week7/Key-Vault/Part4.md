@@ -8,11 +8,13 @@
 - Successfully create and retrieve certificates from the Key Vault.
 - Create a new version of your certificate.
 
-##### Assign The Appropriate RBAC Role
+#### Assign the Appropriate RBAC Role
 
-- Use Azure documentation to find the role that allows you to create Key Vault secrets.
+- Refer to the Azure documentation to identify the role that grants permissions to create Key Vault secrets.
+  
+- Use the Azure CLI to assign this role to your user account. Ensure that you adhere to the **Principle of Least Privilege** by selecting the minimal permissions required for your tasks.
 
-- Use AZ CLI to assign the identified role to your user account. Keep the 'Prinicpal of least privilege' in mind when identifying and selecting your role. 
+**Note:** Always review and verify the permissions associated with each role to ensure secure and appropriate access control.
 
 ### **Verify Role Assignments**
 - Check that the role has been correctly assigned to your user by listing their role assignments.
