@@ -208,13 +208,6 @@ In the Log Analytics workspace, you can query logs related to pod failures or er
   - Use Kusto Query Language (KQL) to query for pod errors based on status reasons like `ImagePullBackOff` or `CrashLoopBackOff`.
   - These logs will help you identify the root cause of failures and allow you to take corrective action.
 
-##### **Set Up Alerts**
-To ensure timely notifications about issues within your AKS cluster, set up alerts in Azure Monitor. Alerts can automatically notify you when specific conditions are met, such as failed pod deployments or excessive resource usage. These alerts can be configured to send notifications via email, SMS, or integrated communication tools.
-
-- To set up alerts:
-  - Define the conditions under which alerts should trigger, such as critical errors or resource threshold violations.
-  - Choose how and where to receive the alerts, ensuring key personnel are notified in real-time when issues arise in the AKS cluster.
-
 ### Part 6: Integrating Azure Key Vault with AKS
 
 #### Introduction
