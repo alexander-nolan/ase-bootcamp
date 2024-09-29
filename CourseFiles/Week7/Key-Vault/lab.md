@@ -290,14 +290,14 @@ az monitor log-analytics workspace create --resource-group myResourceGroup --wor
 
 **Note:** Regularly review and update your diagnostic settings and queries to ensure comprehensive monitoring and auditing of Key Vault activities.
 
-# Part 6: Network Isolation for Azure Key Vault
+### Part 6: Network Isolation for Azure Key Vault
 
-## **Introduction**
+#### **Introduction**
 Network isolation is crucial for securing Azure Key Vault by restricting access to specific virtual networks and IP addresses. This ensures that only authorized resources can access your Key Vault, reducing the risk of unauthorized data access.
 
-## **Steps to Implement Network Isolation**
+#### **Steps to Implement Network Isolation**
 
-### **1. Disable Access from Public Networks**
+#### **1. Disable Access from Public Networks**
 
 Disabling public network access helps prevent any unauthorized access attempts from outside your designated network.
 
@@ -312,7 +312,7 @@ Disabling public network access helps prevent any unauthorized access attempts f
 - Attempt to access Key Vault resources, such as secrets or certificates, from a public network.
 - Verify that access is denied.
 
-### **2. Enable Public Network Access with Restrictions**
+#### **2. Enable Public Network Access with Restrictions**
 
 If you need limited public access, you can configure the Key Vault to allow only specific IP addresses.
 
@@ -329,7 +329,7 @@ If you need limited public access, you can configure the Key Vault to allow only
 - Access the Key Vault from your allowed IP address.
 - Check in the Azure Portal under the **Networking** section to see your IP listed with a status of **Allow**.
 
-### **3. Deleting the Key Vault**
+#### **3. Deleting the Key Vault**
 
 Deleting a Key Vault can sometimes generate errors. Follow these steps to troubleshoot:
 
@@ -341,12 +341,12 @@ Deleting a Key Vault can sometimes generate errors. Follow these steps to troubl
 - Make necessary adjustments.
 - Delete the Key Vault.
 
-# Part 7: Creating Key Vault with Terraform
+### Part 7: Creating Key Vault with Terraform
 
-## **Introduction**
+#### **Introduction**
 In this part, you'll learn how to automate the creation and management of Azure Key Vault using Terraform. By leveraging Infrastructure as Code (IaC), you can ensure consistent, repeatable deployments across your environments.
 
-## **Terraform Installation**
+#### **Terraform Installation**
 
 ```bash
 choco install terraform
@@ -354,20 +354,20 @@ choco install terraform
 
 **Note:** If you don't have Chocolatey installed, you can follow the instructions at chocolatey.org/install.
 
-## **Setup and Configuration**
+#### **Setup and Configuration**
 
-### **1. Configure Backend Storage**
+#### **1. Configure Backend Storage**
 Create an Azure Storage Account to store the Terraform state file. This ensures that your state is maintained centrally and can be shared among multiple collaborators.
 
-### **2. Create the Key Vault Resource**
+#### **2. Create the Key Vault Resource**
 Use the `azurerm_key_vault` resource in Terraform to define your Key Vault. This resource should include specifications like name, resource group and location.
 
 *Hint: Define RBAC roles and assignments to manage permissions for different users and services.*
 
-### **3. Enable Purge Protection**
+#### **3. Enable Purge Protection**
 Once the Key Vault is created, enable Purge Protection using your existing Terraform configuration. This feature prevents permanent deletion of the Key Vault or its contents, adding an extra layer of security.
 
-### **4. Optional: Create Certificates, Secrets, and Keys**
+#### **4. Optional: Create Certificates, Secrets, and Keys**
 Optionally, use Terraform to create and manage certificates, secrets, and keys in your Key Vault. This enables centralized management of sensitive information in your infrastructure.
 
 
