@@ -120,15 +120,15 @@ Hint: Before assigning the role, ensure you have the Object ID of your user and 
 - Successfully create and retrieve secrets from the Key Vault.
 - Create a new version of your secret.
 
-### Assign Roles
+#### Assign Roles
 
-#### Assign the Appropriate RBAC Role
+##### Assign the Appropriate RBAC Role
 
 - You’ll need to assign a specific role to manage secrets within the Key Vault. Determine the minimal permissions required for your task and assign the role to yourself.
 
 **Hint**: Refer to the Azure documentation to identify the most appropriate role for secret management
 
-### Create and Retrieve Secrets
+#### Create and Retrieve Secrets
 
 ##### **Create a Secret**
 - Once the role is assigned, create a new secret in the Key Vault. Be sure to specify the correct vault and secret value.
@@ -143,9 +143,9 @@ Hint: Before assigning the role, ensure you have the Object ID of your user and 
 ##### **Confirm Secret Creation in the Azure Portal**
 - As with keys, navigate to the **Secrets** section in the Azure Portal and confirm that your secret is listed.
 
-### Secret Version Management
+#### Secret Version Management
 
-#### Create a New Version of the Secret
+##### Create a New Version of the Secret
 
 - Determine how to create a new version of your secret using either the Azure portal or the Azure CLI.
 - Verify the creation of the new version by viewing both the current and previous versions of the secret in your Key Vault.
@@ -170,7 +170,7 @@ Hint: Before assigning the role, ensure you have the Object ID of your user and 
 - Successfully create and retrieve certificates from the Key Vault.
 - Create a new version of your certificate.
 
-#### Assign the Appropriate RBAC Role
+##### Assign the Appropriate RBAC Role
 
 - Refer to the Azure documentation to identify the role that grants permissions to create Key Vault secrets.
   
@@ -178,7 +178,7 @@ Hint: Before assigning the role, ensure you have the Object ID of your user and 
 
 **Note:** Always review and verify the permissions associated with each role to ensure secure and appropriate access control.
 
-### **Verify Role Assignments**
+##### **Verify Role Assignments**
 - Check that the role has been correctly assigned to your user by listing their role assignments.
 
 *Hint: Use commands to list role assignments and confirm the permissions.*
@@ -226,27 +226,25 @@ Hint: Before assigning the role, ensure you have the Object ID of your user and 
 ```
 - This policy file defines the properties of the certificate, including the key type, key size, subject, and validity period.
 
-### **Retrieve the Certificate**
+##### **Retrieve the Certificate**
 - Retrieve the certificate details from your Key Vault to verify its creation and configuration.
 
 *Hint: Use Azure CLI commands to display certificate details.*
 
-### **Verify the Certificate in the Azure Portal**
+##### **Verify the Certificate in the Azure Portal**
 1. Go to the Azure Portal and navigate to your Key Vault.
 2. Check the **Certificates** section to confirm that the certificate is listed and view its details.
-
-#### Export the Certificate
 
 ##### **Export the Certificate**
 
 - Use AZ CLI to export the certificate to your local machine in '.pem' format.
 
-### **Convert the Certificate to PFX Format**
+##### **Convert the Certificate to PFX Format**
 - Use OpenSSL or another tool to convert the PEM-formatted certificate to PFX format, commonly used for importing into various applications.
 
 *Hint: Ensure you have the necessary tools installed for certificate conversion.*
 
-### **Confirm the Exported Certificate**
+##### **Confirm the Exported Certificate**
 - View the exported certificate file using a certificate management tool to ensure it matches the original properties set in the Key Vault.
 
 ### Part 5: Auditing Key Vault Activity
@@ -259,9 +257,7 @@ Hint: Before assigning the role, ensure you have the Object ID of your user and 
 - Configure Diagnostic Logs for detailed insights into Key Vault operations.
 - Analyze logs using Azure Monitor to identify and respond to potential security issues.
 
-#### Create a Log Analytics Workspace
-
-##### **Create a Log Analytics Workspace**
+##### Create a Log Analytics Workspace
 
 ```bash
 az monitor log-analytics workspace create --resource-group myResourceGroup --workspace-name myWorkspace --location eastus
@@ -269,16 +265,12 @@ az monitor log-analytics workspace create --resource-group myResourceGroup --wor
 
 - This command creates a Log Analytics workspace named `myWorkspace` in the resource group `myResourceGroup` and location `eastus`.
 
-#### Enable Diagnostic Logging
-
 ##### **Enable Diagnostic Logging for Key Vault**
 
 - Set up a diagnostic setting for your Key Vault, linking it to your Log Analytics workspace. As part of this, ensure you enable the ‘AuditEvent’ log category to capture audit events such as key operations and access attempts
 - This will allow you to monitor and review key activities within your Key Vault. You’ll need to specify the Key Vault resource and the Log Analytics workspace during the configuration.
 
-### View Audit Logs in Azure Portal
-
-#### View Audit Logs
+##### View Audit Logs
 
 - **Kusto Query:** Construct a Kusto query in your Log Analytics workspace that filters all Key Vault audit activity. Make sure to scope it specifically to the Key Vault you created to isolate relevant events.
   
@@ -295,9 +287,9 @@ az monitor log-analytics workspace create --resource-group myResourceGroup --wor
 #### **Introduction**
 Network isolation is crucial for securing Azure Key Vault by restricting access to specific virtual networks and IP addresses. This ensures that only authorized resources can access your Key Vault, reducing the risk of unauthorized data access.
 
-#### **Steps to Implement Network Isolation**
+##### **Steps to Implement Network Isolation**
 
-#### **1. Disable Access from Public Networks**
+##### **1. Disable Access from Public Networks**
 
 Disabling public network access helps prevent any unauthorized access attempts from outside your designated network.
 
@@ -312,7 +304,7 @@ Disabling public network access helps prevent any unauthorized access attempts f
 - Attempt to access Key Vault resources, such as secrets or certificates, from a public network.
 - Verify that access is denied.
 
-#### **2. Enable Public Network Access with Restrictions**
+##### **2. Enable Public Network Access with Restrictions**
 
 If you need limited public access, you can configure the Key Vault to allow only specific IP addresses.
 
@@ -329,7 +321,7 @@ If you need limited public access, you can configure the Key Vault to allow only
 - Access the Key Vault from your allowed IP address.
 - Check in the Azure Portal under the **Networking** section to see your IP listed with a status of **Allow**.
 
-#### **3. Deleting the Key Vault**
+##### **3. Deleting the Key Vault**
 
 Deleting a Key Vault can sometimes generate errors. Follow these steps to troubleshoot:
 
@@ -346,7 +338,7 @@ Deleting a Key Vault can sometimes generate errors. Follow these steps to troubl
 #### **Introduction**
 In this part, you'll learn how to automate the creation and management of Azure Key Vault using Terraform. By leveraging Infrastructure as Code (IaC), you can ensure consistent, repeatable deployments across your environments.
 
-#### **Terraform Installation**
+##### **Terraform Installation**
 
 ```bash
 choco install terraform
@@ -354,20 +346,20 @@ choco install terraform
 
 **Note:** If you don't have Chocolatey installed, you can follow the instructions at chocolatey.org/install.
 
-#### **Setup and Configuration**
+##### **Setup and Configuration**
 
-#### **1. Configure Backend Storage**
+##### **1. Configure Backend Storage**
 Create an Azure Storage Account to store the Terraform state file. This ensures that your state is maintained centrally and can be shared among multiple collaborators.
 
-#### **2. Create the Key Vault Resource**
+##### **2. Create the Key Vault Resource**
 Use the `azurerm_key_vault` resource in Terraform to define your Key Vault. This resource should include specifications like name, resource group and location.
 
 *Hint: Define RBAC roles and assignments to manage permissions for different users and services.*
 
-#### **3. Enable Purge Protection**
+##### **3. Enable Purge Protection**
 Once the Key Vault is created, enable Purge Protection using your existing Terraform configuration. This feature prevents permanent deletion of the Key Vault or its contents, adding an extra layer of security.
 
-#### **4. Optional: Create Certificates, Secrets, and Keys**
+##### **4. Optional: Create Certificates, Secrets, and Keys**
 Optionally, use Terraform to create and manage certificates, secrets, and keys in your Key Vault. This enables centralized management of sensitive information in your infrastructure.
 
 
