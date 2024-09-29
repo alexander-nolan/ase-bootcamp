@@ -45,10 +45,6 @@ Now that you have a resource group, it’s time to create an AKS cluster inside 
   - Enable monitoring to track the cluster’s performance, and configure SSH keys if required for secure access.
   - This process may take several minutes to complete. Wait for confirmation that the cluster has been successfully created.
 
-You're right. Let's correct the authentication process specific to AKS:
-
----
-
 #### **Authenticate to the AKS Cluster**
 
 After the AKS cluster has been created, you need to authenticate `kubectl` to interact with the cluster. In AKS, this involves retrieving the cluster's credentials and configuring `kubectl` to use them.
@@ -82,16 +78,17 @@ If Helm is not already installed on your system, follow the instructions on the 
 - For Windows, Mac, and Linux, refer to the Helm installation guide at [Helm Official Website](https://helm.sh/docs/intro/install/).
 
 ##### **Add a Helm Repository**
-Once Helm is installed, you will need to add a repository that contains Helm charts. Charts are collections of Kubernetes resources, pre-configured to deploy applications or services. After adding the repository, update your local cache to ensure you have the latest charts available.
+Once Helm is installed, you will need to add a helm chart repository. After adding the repository, update your local cache to ensure you have the latest charts available.
 
 #### Deploy a Sample Application
 
-##### **Deploy WordPress Using Helm**
-You will deploy WordPress, a popular content management system, using a Helm chart from the repository you added in the previous steps. This is an excellent example of how to use Helm to quickly and easily deploy an application into your AKS cluster.
+#### **Deploy WordPress Using Helm**
 
-- To deploy the WordPress application:
-  - Use Helm to pull the latest WordPress chart from the Bitnami repository you added.
-  - You will need to specify a release name for the deployment and include the necessary configuration parameters, such as resource limits or storage options.
+You will deploy WordPress using a Helm chart from the Bitnami repository you added earlier. This is a quick and easy way to deploy an application to your AKS cluster.
+
+- **Steps to Deploy the WordPress Application:**
+  - Deploy the WordPress chart from the Bitnami repository using Helm.
+  - Specify a **release name** for the deployment and include any necessary configuration parameters, such as resource limits or storage options.
 
 ##### **Verify the Deployment**
 Once you’ve deployed WordPress, you will need to verify that the deployment was successful:
@@ -123,8 +120,6 @@ Once the service is up and running, you can access the application:
 - Learn how to manually scale a Kubernetes deployment in AKS.
 - Understand how scaling impacts the performance and availability of the application.
 - Verify the scaling process and observe the changes in the AKS cluster.
-
- Here’s the reformatted section in the desired style:
 
 #### **Scaling the Application**
 
