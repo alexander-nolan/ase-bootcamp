@@ -45,13 +45,18 @@ Now that you have a resource group, it’s time to create an AKS cluster inside 
   - Enable monitoring to track the cluster’s performance, and configure SSH keys if required for secure access.
   - This process may take several minutes to complete. Wait for confirmation that the cluster has been successfully created.
 
+You're right. Let's correct the authentication process specific to AKS:
+
+---
+
 #### **Authenticate to the AKS Cluster**
 
-After the AKS cluster has been created, you will need to authenticate `kubectl` to connect to it. This step allows you to manage the cluster and deploy applications using the Kubernetes command-line tool.
+After the AKS cluster has been created, you need to authenticate `kubectl` to interact with the cluster. In AKS, this involves retrieving the cluster's credentials and configuring `kubectl` to use them.
 
-- To authenticate with the cluster:
-  - Use `kubectl` to configure the connection between your local machine and the AKS cluster.
-  - Once authenticated, you will be able to execute Kubernetes commands directly from your terminal.
+- To authenticate with the AKS cluster:
+  - Use the Azure CLI command `az aks get-credentials` to download the cluster's credentials and configure `kubectl` for access.
+  - This command will update your `kubectl` configuration file (`kubeconfig`) with the necessary authentication details for the AKS cluster.
+  - Once the credentials are configured, you can use `kubectl` to manage the cluster and deploy applications directly from your terminal.
 
 #### **View the AKS Cluster in the Azure Portal**
 
