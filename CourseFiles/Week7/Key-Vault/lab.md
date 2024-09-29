@@ -131,12 +131,13 @@ Hint: Before assigning the role, ensure you have the Object ID of your user and 
 #### Create and Retrieve Secrets
 
 ##### **Create a Secret**
-- Once the role is assigned, create a new secret in the Key Vault. Be sure to specify the correct vault and secret value.
+- Once the role is assigned, create a new secret in the Key Vault. Add a description, some tags, and set the content type to "text/plain".
 
 **Hint**: Secrets can include passwords, connection strings, or other sensitive information.
 
 ##### **Retrieve the Secret**
 - After storing the secret, retrieve it using Azure CLI to confirm that it has been saved correctly.
+- Ensure the value of the secret is displayed on the output of the command.
 
 **Tip**: Ensure that the secret’s output is handled securely to avoid exposing sensitive data.
 
@@ -270,7 +271,7 @@ az monitor log-analytics workspace create --resource-group myResourceGroup --wor
 - Set up a diagnostic setting for your Key Vault, linking it to your Log Analytics workspace. As part of this, ensure you enable the ‘AuditEvent’ log category to capture audit events such as key operations and access attempts
 - This will allow you to monitor and review key activities within your Key Vault. You’ll need to specify the Key Vault resource and the Log Analytics workspace during the configuration.
 
-##### View Audit Logs
+##### Additional Logging tasks
 
 - **Kusto Query:** Construct a Kusto query in your Log Analytics workspace that filters all Key Vault audit activity. Make sure to scope it specifically to the Key Vault you created to isolate relevant events.
   
