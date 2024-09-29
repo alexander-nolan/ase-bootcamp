@@ -53,38 +53,17 @@ az account show
 #### Create a Key Vault 
 
 ##### **Create a Resource Group**  
-- Create a resource group to hold your Key Vault:  
-  ```bash  
-  az group create --name myResourceGroup --location eastus  
-  ```
-
-##### **Resource Group Naming Instructions** 
+- Create a resource group to hold your Key Vault
 - Resource Groups need to be unique within a subscription. If you receive an error message about a naming conflict. Simply try another name for your resource group and attempt to create it again.
 
 ##### **Create a Key Vault**  
 Create a Key Vault in the resource group. Note: Key Vault names must be globally unique, which means 
 no two Key Vaults in the world can have the same name. To ensure this, append your initials and a unique 
-number to the Key Vault name. For example:
+number to the Key Vault name.
 
-```bash  
-az keyvault create --name myKeyVaultAN01624 --resource-group myResourceGroup --location eastus --enable-rbac-authorization
-```
-
-##### **Key Vault Naming Instructions** 
-- Replace `myKeyVaultAN01624` with a unique name by adding your initials and a number.
 - If the command fails due to the name being taken, modify the number or name slightly and try again.
 - Key Vault names can contain alphanumeric characters (letters and numbers) and hyphens, but they must start and end with a letter or number and be between 3 and 24 characters long.
-
-##### **View the Key Vault in the Azure Portal**  
-- Open the [Azure Portal](https://portal.azure.com/).
-- Navigate to "Resource groups" in the left-hand menu.
-- Select the resource group `myResourceGroup`.
-- Click on the Key Vault to view its details.
-
-![alt text](images/Part1.png)
-
-### Next Steps  
-Proceed to Part 2 where you will create and retrieve keys.
+- Once the Key Vault has been created, view it in the Azure Portal
 
 ### Part 2: Creating and Retrieving Keys
 
@@ -100,85 +79,36 @@ Proceed to Part 2 where you will create and retrieve keys.
 
 ##### Attempt to Create a Key in the Key Vault
 
-  ```bash
-  az keyvault key create --vault-name <key-vault-name> --name myKey --protection software --kty RSA --size 2048 --ops encrypt decrypt sign verify
-  ```
-  - Replace `<key-vault-name>` with the name of your key vault.
-  - **Note:** This command will fail unless the user has the appropriate RBAC role assigned, such as the **Key Vault Crypto Officer** role.
+- First, try to create a key inside your Key Vault. If you haven’t been assigned the correct role, this operation will fail.
 
+Tip: If this step fails, it indicates you lack the necessary permissions, and the next step will show you how to assign them.
 
-##### Assign Key Vault Crypto Officer Role to the Currently Logged-In User
+##### Assign the Key Vault Crypto Officer Role
 
-To assign the Key Vault Crypto Officer role to the currently logged-in user, follow these steps:
+- Assign the Key Vault Crypto Officer role to yourself, which gives you permission to create and manage keys.
 
-##### Get the Currently Logged-In User's Object ID, and the Current Subscription ID
-
-```bash
-az ad signed-in-user show --query id --output tsv
-az account show --query id --output tsv
-```
-
-- These commands retrieve the object ID of the currently logged-in user and the current Subscription ID. Note down the IDs returned by the commands.
-
-
-##### Assign The Key Vault Crypto Officer Role
-
-```bash
-az role assignment create --role "Key Vault Crypto Officer" --assignee <user-object-id> --scope /subscriptions/<subscription-id>/resourceGroups/myResourceGroup/providers/Microsoft.KeyVault/vaults/<key-vault-name>
-```
-
-- Replace `<user-object-id>` with the object ID obtained from the previous step.
-- Replace `<subscription-id>` with your Azure subscription ID.
-- Replace `<key-vault-name>` with the name of your key vault.
-- This command assigns the Key Vault Crypto Officer role to the currently logged-in user for the Key Vault.
-
+Hint: Before assigning the role, ensure you have the Object ID of your user and the Subscription ID available.
 
 ##### Verify Role Assignment
 
-```bash
-az role assignment list --assignee <user-object-id> --scope /subscriptions/<subscription-id>/resourceGroups/myResourceGroup/providers/Microsoft.KeyVault/vaults/<key-vault-name> --output table
-```
-
-- Replace `<user-object-id>` with the object ID obtained earlier.
-- Replace `<subscription-id>` with your Azure subscription ID.
-- Replace `<key-vault-name>` with the name of your key vault.
-- This command lists the role assignments for the specified user and scope, allowing you to verify that the Key Vault Crypto Officer role has been assigned.
+- After assigning the role, verify that it has been applied correctly.
 
 #### Create and Retrieve Keys
 
-##### Create a Key
+##### **Create a Key**
+- Now that the appropriate role has been assigned, attempt to create a key in your Key Vault. You will need to decide on the key type (e.g., RSA) and the key size.
 
-  ```bash
-  az keyvault key create --vault-name <key-vault-name> \
-  --name myKey \
-  --protection software \
-  --kty RSA \
-  --size 2048 \
-  --ops encrypt decrypt sign verify
-  ```
-  - Replace `<key-vault-name>` with the name of your key vault.
-  - **Note:** This command should now work, now that your identity has been assigned the **Key Vault Crypto Officer** role.
+**Hint**: Make sure to also define the cryptographic operations (e.g., encrypt, decrypt, sign) that the key can perform.
 
 
-##### Retrieve the Key
+##### **Retrieve the Key**
+- After successfully creating the key, retrieve it to confirm that it has been stored correctly.
 
-- Use AZ CLI to retrieve the key from the Key Vault:
-  ```bash
-  az keyvault key show --vault-name <key-vault-name> --name myKey
-  ```
+**Tip**: When retrieving keys, always ensure they are handled securely, as they are sensitive pieces of data.
 
-##### Confirm Key Creation in the Azure Portal
-- Open the [Azure Portal](https://portal.azure.com/).
-- Navigate to "Resource groups" in the left-hand menu.
-- Select the resource group `myResourceGroup`.
-- Click on the Key Vault.
-- In the Key Vault, navigate to "Keys" under the "Objects" section.
-- Confirm that the key `myKey` is listed.
-- Click on the key `myKey` to view its details.
-- Click on the current version.
-- Under the "Key operations" section, confirm that the operations `encrypt`, `decrypt`, `sign`, and `verify` are listed.
+##### **Confirm Key Creation in the Azure Portal**
+- Visit the **Azure Portal** again, navigate to your Key Vault, and check the "Keys" section. You should see your newly created key listed there.
 
-![alt text](images/Part2.png)
 
 ### Part 3: Creating and Retrieving Secrets
 
@@ -194,38 +124,24 @@ az role assignment list --assignee <user-object-id> --scope /subscriptions/<subs
 
 #### Assign the Appropriate RBAC Role
 
-- Refer to the Azure documentation to identify the role that grants permissions to create Key Vault secrets.
-  
-- Use the Azure CLI to assign this role to your user account. Ensure that you adhere to the **Principle of Least Privilege** by selecting the minimal permissions required for your tasks.
+- You’ll need to assign a specific role to manage secrets within the Key Vault. Determine the minimal permissions required for your task and assign the role to yourself.
 
-**Note:** Always review and verify the permissions associated with each role to ensure secure and appropriate access control.
-
-##### Verify Role Assignments
-
-```bash
-az role assignment list --assignee <user-object-id> --scope /subscriptions/<subscription-id>/resourceGroups/myResourceGroup/providers/Microsoft.KeyVault/vaults/<key-vault-name> --output table
-```
-
-- This command lists the role assignments for the specified user and scope, allowing you to verify that both the Key Vault Crypto Officer and Key Vault Secrets Officer roles have now been assigned.
+**Hint**: Refer to the Azure documentation to identify the most appropriate role for secret management
 
 ### Create and Retrieve Secrets
 
-- Use the Azure CLI to create a new secret in your Key Vault. Ensure that you specify the correct Key Vault name and secret value.
+##### **Create a Secret**
+- Once the role is assigned, create a new secret in the Key Vault. Be sure to specify the correct vault and secret value.
 
-- Retrieve the secret using the Azure CLI to confirm it has been stored correctly. Make sure to handle the output securely and avoid exposing sensitive information.
+**Hint**: Secrets can include passwords, connection strings, or other sensitive information.
 
-##### Confirm Secret Creation in the Azure Portal
-- Open the [Azure Portal](https://portal.azure.com/).
-- Navigate to "Resource groups" in the left-hand menu.
-- Select the resource group `myResourceGroup`.
-- Click on the Key Vault.
-- In the Key Vault, navigate to "Secrets" under the "Settings" section.
-- Confirm that the secret `mySecret` is listed.
-- Click on the secret `mySecret` to view its details.
-- Click on the current version.
-- Click `Show Secret Value`
+##### **Retrieve the Secret**
+- After storing the secret, retrieve it using Azure CLI to confirm that it has been saved correctly.
 
-![alt text](images/Part3-a.png)
+**Tip**: Ensure that the secret’s output is handled securely to avoid exposing sensitive data.
+
+##### **Confirm Secret Creation in the Azure Portal**
+- As with keys, navigate to the **Secrets** section in the Azure Portal and confirm that your secret is listed.
 
 ### Secret Version Management
 
@@ -266,7 +182,6 @@ az role assignment list --assignee <user-object-id> --scope /subscriptions/<subs
 - Check that the role has been correctly assigned to your user by listing their role assignments.
 
 *Hint: Use commands to list role assignments and confirm the permissions.*
-
 
 ##### Create a policy.json file
 
@@ -358,15 +273,8 @@ az monitor log-analytics workspace create --resource-group myResourceGroup --wor
 
 ##### **Enable Diagnostic Logging for Key Vault**
 
-```bash
-az monitor diagnostic-settings create \
-  --resource /subscriptions/<subscription-id>/resourceGroups/myResourceGroup/providers/Microsoft.KeyVault/vaults/<key-vault-name> \
-  --name "keyvault-diagnostics" \
-  --logs '[{"category": "AuditEvent","enabled": true}]' \
-  --workspace myWorkspace
-```
-
-- This command enables diagnostic logging for the Key Vault and sends the logs to the Log Analytics workspace `myWorkspace`.
+- Set up a diagnostic setting for your Key Vault, linking it to your Log Analytics workspace. As part of this, ensure you enable the ‘AuditEvent’ log category to capture audit events such as key operations and access attempts
+- This will allow you to monitor and review key activities within your Key Vault. You’ll need to specify the Key Vault resource and the Log Analytics workspace during the configuration.
 
 ### View Audit Logs in Azure Portal
 
