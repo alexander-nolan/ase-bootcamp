@@ -199,12 +199,229 @@ response2 = session.get('https://jsonplaceholder.typicode.com/posts/2')
 session.close()
 ```
 
-### Practice Exercises:
-1. Create a function that fetches and displays user data from the JSONPlaceholder API
-2. Build a script that creates a new post and then updates it
-3. Implement pagination to fetch multiple pages of data
-4. Create a function that handles both successful and failed API requests
-5. Build a simple CLI tool that allows users to perform CRUD operations on the JSONPlaceholder API
+### Step 9: Testing Authentication with Postman and Python
+Learn how to test different authentication methods using both Postman and Python.
+
+#### Basic Authentication
+**Postman:**
+1. Create a new request to `https://httpbin.org/basic-auth/user/pass`
+2. Under the "Authorization" tab, select "Basic Auth"
+3. Enter:
+   - Username: `user`
+   - Password: `pass`
+
+**Python equivalent:**
+```python
+import requests
+
+# Basic Authentication
+response = requests.get(
+    'https://httpbin.org/basic-auth/user/pass',
+    auth=('user', 'pass')
+)
+print("Basic Auth Response:", response.json())
+```
+
+#### Bearer Token
+**Postman:**
+1. Create a new request to `https://httpbin.org/bearer`
+2. Under the "Authorization" tab, select "Bearer Token"
+3. Enter token: `my-test-token`
+
+**Python equivalent:**
+```python
+# Bearer Token Authentication
+headers = {
+    'Authorization': 'Bearer my-test-token'
+}
+response = requests.get(
+    'https://httpbin.org/bearer',
+    headers=headers
+)
+print("Bearer Token Response:", response.json())
+```
+
+#### API Key
+**Postman:**
+1. Create a new request to `https://httpbin.org/headers`
+2. Under the "Headers" tab, add:
+   - Key: `X-API-Key`
+   - Value: `my-api-key-123`
+
+**Python equivalent:**
+```python
+# API Key in Headers
+headers = {
+    'X-API-Key': 'my-api-key-123'
+}
+response = requests.get(
+    'https://httpbin.org/headers',
+    headers=headers
+)
+print("Headers Response:", response.json())
+```
+
+#### Complete Testing Script
+```python
+import requests
+
+def test_auth_methods():
+    print("\n=== Testing Different Auth Methods ===\n")
+
+    # Test Basic Auth
+    try:
+        response = requests.get(
+            'https://httpbin.org/basic-auth/user/pass',
+            auth=('user', 'pass')
+        )
+        print("Basic Auth Test:")
+        print(f"Status: {response.status_code}")
+        print(f"Response: {response.json()}\n")
+    except requests.exceptions.RequestException as e:
+        print(f"Basic Auth Error: {e}\n")
+
+    # Test Bearer Token
+    try:
+        headers = {'Authorization': 'Bearer my-test-token'}
+        response = requests.get(
+            'https://httpbin.org/bearer',
+            headers=headers
+        )
+        print("Bearer Token Test:")
+        print(f"Status: {response.status_code}")
+        print(f"Response: {response.json()}\n")
+    except requests.exceptions.RequestException as e:
+        print(f"Bearer Token Error: {e}\n")
+
+    # Test API Key
+    try:
+        headers = {'X-API-Key': 'my-api-key-123'}
+        response = requests.get(
+            'https://httpbin.org/headers',
+            headers=headers
+        )
+        print("API Key Test:")
+        print(f"Status: {response.status_code}")
+        print(f"Response: {response.json()}\n")
+    except requests.exceptions.RequestException as e:
+        print(f"API Key Error: {e}\n")
+
+if __name__ == "__main__":
+    test_auth_methods()
+```
+
+**Note:** In Postman, you can click the "Code" button (</>) to see the Python code for any request you've configured.
+
+### Step 11: Asynchronous Programming with asyncio
+Learn how to make concurrent API requests using Python's asyncio and aiohttp.
+
+First, install aiohttp:
+```bash
+pip install aiohttp
+```
+
+Here's how to make asynchronous API requests:
+
+```python
+import asyncio
+import aiohttp
+import time
+
+async def fetch_post(session, post_id):
+    url = f'https://jsonplaceholder.typicode.com/posts/{post_id}'
+    async with session.get(url) as response:
+        return await response.json()
+
+async def fetch_user(session, user_id):
+    url = f'https://jsonplaceholder.typicode.com/users/{user_id}'
+    async with session.get(url) as response:
+        return await response.json()
+
+async def main():
+    # Start timing
+    start_time = time.time()
+    
+    # Create a session
+    async with aiohttp.ClientSession() as session:
+        # Create tasks for multiple API calls
+        post_tasks = [fetch_post(session, i) for i in range(1, 6)]
+        user_tasks = [fetch_user(session, i) for i in range(1, 4)]
+        
+        # Execute all tasks concurrently
+        posts, users = await asyncio.gather(
+            asyncio.gather(*post_tasks),
+            asyncio.gather(*user_tasks)
+        )
+        
+        # Calculate execution time
+        execution_time = time.time() - start_time
+        
+        # Print results
+        print(f"\nFetched {len(posts)} posts and {len(users)} users in {execution_time:.2f} seconds")
+        
+        print("\nPosts:")
+        for post in posts:
+            print(f"- Post {post['id']}: {post['title'][:30]}...")
+        
+        print("\nUsers:")
+        for user in users:
+            print(f"- User {user['id']}: {user['name']}")
+
+# Compare with synchronous version
+def sync_version():
+    start_time = time.time()
+    
+    # Make the same requests synchronously
+    posts = []
+    users = []
+    
+    for i in range(1, 6):
+        response = requests.get(f'https://jsonplaceholder.typicode.com/posts/{i}')
+        posts.append(response.json())
+    
+    for i in range(1, 4):
+        response = requests.get(f'https://jsonplaceholder.typicode.com/users/{i}')
+        users.append(response.json())
+    
+    execution_time = time.time() - start_time
+    print(f"\nSynchronous version took {execution_time:.2f} seconds")
+
+if __name__ == "__main__":
+    print("Running async version...")
+    asyncio.run(main())
+    
+    print("\nRunning sync version...")
+    sync_version()
+```
+
+This example demonstrates:
+1. Creating concurrent requests using `asyncio` and `aiohttp`
+2. Fetching multiple posts and users simultaneously
+3. Comparing async vs sync performance
+4. Proper session management and error handling
+
+Expected output will look something like:
+```
+Running async version...
+Fetched 5 posts and 3 users in 0.34 seconds
+
+Posts:
+- Post 1: sunt aut facere repellat pr...
+- Post 2: qui est esse...
+- Post 3: ea molestias quasi exercita...
+- Post 4: eum et est occaecati...
+- Post 5: nesciunt quas odio...
+
+Users:
+- User 1: Leanne Graham
+- User 2: Ervin Howell
+- User 3: Clementine Bauch
+
+Running sync version...
+Synchronous version took 1.52 seconds
+```
+
+The async version is typically 3-4 times faster because it makes all requests concurrently instead of sequentially.
 
 ### Additional Resources:
 - [Requests Library Documentation](https://docs.python-requests.org/)
