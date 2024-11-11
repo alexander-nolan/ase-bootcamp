@@ -4,10 +4,92 @@
 1. **Install Python**  
    Python 3.x is required. Download from the official [Python website](https://www.python.org/downloads/).
 
-2. **Install Required Packages**  
+   **For macOS:**
    ```bash
-   pip install requests
+   # Install Homebrew
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   
+   # Install Python 3
+   brew install python3
    ```
+
+   **For Linux (Ubuntu/Debian):**
+   ```bash
+   sudo apt update
+   sudo apt install python3-pip
+   ```
+
+   **For Windows:**
+   - Download Python from [python.org](https://www.python.org/downloads/)
+   - During installation, check "Add Python to PATH"
+   - Pip comes included with Python installation
+
+2. **Verify Installation**  
+   ```bash
+   # Check Python version
+   python3 --version
+
+   # Check pip version
+   python3 -m pip --version
+   ```
+
+3. **Create and Activate Virtual Environment**  
+   ```bash
+   # Create a new directory for your project
+   mkdir python-api-lab
+   cd python-api-lab
+
+   # Create virtual environment
+   python3 -m venv venv
+
+   # Activate virtual environment
+   # For macOS/Linux:
+   source venv/bin/activate
+   # For Windows:
+   # venv\Scripts\activate
+
+   # Your prompt should now show (venv) at the beginning
+   ```
+
+4. **Install Required Packages**  
+   ```bash
+   # After activating virtual environment
+   python3 -m pip install requests
+   python3 -m pip install aiohttp
+   ```
+
+5. **When You're Done**  
+   ```bash
+   # Deactivate virtual environment
+   deactivate
+   ```
+
+Note: Always make sure your virtual environment is activated (you'll see `(venv)` in your prompt) when installing packages or running your code.
+
+### How to Run Any Example in this Guide
+
+1. **Make sure your virtual environment is activated**
+   ```bash
+   # You should see (venv) at the start of your prompt
+   # If not, activate it:
+   source venv/bin/activate
+   ```
+
+2. **Create a Python file**
+   ```bash
+   # Create and open a new .py file
+   touch example.py
+   code example.py   # or use your preferred editor
+   ```
+
+3. **Copy the example code** into your .py file
+
+4. **Run the code**
+   ```bash
+   python3 example.py
+   ```
+
+Note: These steps apply to ALL code examples in this guide. Just copy any example into a .py file and run it using `python3 filename.py`
 
 ### Step 1: Basic GET Request
 Let's start with a simple GET request to retrieve data from an API.
@@ -62,18 +144,18 @@ import requests
 # Define headers
 headers = {
     'User-Agent': 'Python API Lab Client',
-    'Accept': 'application/json',
-    'Authorization': 'Bearer your-token-here'
+    'Accept': 'application/json'
 }
 
 # Make request with headers
 response = requests.get(
-    'https://api.github.com/user',
+    'https://jsonplaceholder.typicode.com/posts/1',
     headers=headers
 )
 
 print(f"Status Code: {response.status_code}")
 print(f"Headers: {response.headers}")
+print(f"Data: {response.json()}")
 ```
 
 ### Step 4: Handling Query Parameters
@@ -119,6 +201,10 @@ put_response = requests.put(
     json=put_data
 )
 
+print("PUT Response:")
+print(f"Status Code: {put_response.status_code}")
+print(f"Updated Data: {put_response.json()}\n")
+
 # PATCH request (partial update)
 patch_data = {
     'title': 'Only Update Title'
@@ -128,6 +214,10 @@ patch_response = requests.patch(
     'https://jsonplaceholder.typicode.com/posts/1',
     json=patch_data
 )
+
+print("PATCH Response:")
+print(f"Status Code: {patch_response.status_code}")
+print(f"Updated Data: {patch_response.json()}")
 ```
 
 ### Step 6: DELETE Requests
@@ -170,10 +260,29 @@ def make_api_request(url):
     
     return None
 
-# Test the function
+# Test with valid URL
+print("\nTesting valid URL:")
 result = make_api_request('https://jsonplaceholder.typicode.com/posts/1')
 if result:
-    print("Data retrieved successfully:", result)
+    print("Success! Retrieved data:", result)
+else:
+    print("Failed to retrieve data")
+
+# Test with 404 error
+print("\nTesting 404 error:")
+result = make_api_request('https://jsonplaceholder.typicode.com/posts/999')
+if result:
+    print("Success! Retrieved data:", result)
+else:
+    print("Failed as expected - resource not found")
+
+# Test with invalid URL
+print("\nTesting invalid URL:")
+result = make_api_request('https://invalid-url-that-does-not-exist.com')
+if result:
+    print("Success! Retrieved data:", result)
+else:
+    print("Failed as expected - invalid URL")
 ```
 
 ### Step 8: Working with Sessions
@@ -194,6 +303,15 @@ session.headers.update({
 # Make multiple requests using the session
 response1 = session.get('https://jsonplaceholder.typicode.com/posts/1')
 response2 = session.get('https://jsonplaceholder.typicode.com/posts/2')
+
+# Print results
+print("First request:")
+print(f"Status Code: {response1.status_code}")
+print(f"Data: {response1.json()}\n")
+
+print("Second request:")
+print(f"Status Code: {response2.status_code}")
+print(f"Data: {response2.json()}")
 
 # Close the session when done
 session.close()
@@ -230,6 +348,8 @@ print("Basic Auth Response:", response.json())
 
 **Python equivalent:**
 ```python
+import requests
+
 # Bearer Token Authentication
 headers = {
     'Authorization': 'Bearer my-test-token'
@@ -250,6 +370,8 @@ print("Bearer Token Response:", response.json())
 
 **Python equivalent:**
 ```python
+import requests
+
 # API Key in Headers
 headers = {
     'X-API-Key': 'my-api-key-123'
@@ -315,16 +437,12 @@ if __name__ == "__main__":
 ### Step 11: Asynchronous Programming with asyncio
 Learn how to make concurrent API requests using Python's asyncio and aiohttp.
 
-First, install aiohttp:
-```bash
-pip install aiohttp
-```
-
 Here's how to make asynchronous API requests:
 
 ```python
 import asyncio
 import aiohttp
+import requests
 import time
 
 async def fetch_post(session, post_id):
