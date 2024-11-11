@@ -46,7 +46,7 @@
    # For macOS/Linux:
    source venv/bin/activate
    # For Windows:
-   # venv\Scripts\activate
+   venv\Scripts\activate
 
    # Your prompt should now show (venv) at the beginning
    ```
